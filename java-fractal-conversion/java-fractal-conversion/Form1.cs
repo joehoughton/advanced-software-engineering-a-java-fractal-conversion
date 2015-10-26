@@ -139,5 +139,56 @@ namespace java_fractal_conversion
             windowG.DrawImageUnscaled(this.bitmap, 0, 0);
         }
 
+        private void picture_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            if (e.Button == MouseButtons.Left) // e.consume(); // djm original Java
+            {
+                xs = e.X; // xs = e.getX(); // djm original Java
+                ys = e.Y; // ys = e.getY(); // djm original Java
+            }
+
+        }
+
+        private void picture_MouseUp(object sender, MouseEventArgs e)
+        {
+            int z, w;
+
+            if (action)
+            {
+                xe = e.X; // xe = e.getX(); // djm original Java
+                ye = e.Y; // ye = e.getY(); // djm original Java
+                if (xs > xe)
+                {
+                    z = xs;
+                    xs = xe;
+                    xe = z;
+                }
+                if (ys > ye)
+                {
+                    z = ys;
+                    ys = ye;
+                    ye = z;
+                }
+                w = (xe - xs);
+                z = (ye - ys);
+                if ((w < 2) && (z < 2)) this.Initvalues();
+                else
+                {
+                    if (((float)w > (float)z * xy)) ye = (int)((float)ys + (float)w / xy);
+                    else xe = (int)((float)xs + (float)z * xy);
+                    xende = xstart + xzoom * (double)xe;
+                    yende = ystart + yzoom * (double)ye;
+                    xstart += xzoom * (double)xs;
+                    ystart += yzoom * (double)ys;
+                }
+                xzoom = (xende - xstart) / (double)x1;
+                yzoom = (yende - ystart) / (double)y1;
+                this.Mandelbrot();
+                rectangle = false;
+                // Redraw picture and child components
+                this.Refresh(); // repaint(); // djm original Java
+            }
+        }
     }
 }
