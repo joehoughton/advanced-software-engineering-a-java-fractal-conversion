@@ -44,8 +44,8 @@ namespace java_fractal_conversion
             this.Start();
         }
 
-        // JD: changed start() to Start()
         public void Start()
+        // djm original start()
         {
             action = false;
             rectangle = false;
@@ -75,31 +75,32 @@ namespace java_fractal_conversion
             action = false;
             this.Cursor = this.c1;
             // setCursor(c1); // djm original java
-            // showStatus("Mandelbrot-Set will be produced - please wait...");
+            this.Text = "Mandelbrot-Set will be produced - please wait...";
+            // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
             for (x = 0; x < x1; x += 2)
                 for (y = 0; y < y1; y++)
                 {
                     h = this.Pointcolour(xstart + xzoom * (double)x, ystart + yzoom * (double)y); // color value
                     if (h != alt)
                     {
-                        b = 1.0f - h * h; // brightnes
+                        b = 1.0f - h * h; // brightness
 
                         var customColour = new HSBColor(h * 255, 0.8f * 255, b * 255); // hsb colour
-                        var convertedColour = HSBColor.FromHSB(customColour); //convert hsb to rgb then make a Java Color
+                        var convertedColour = HSBColor.FromHSB(customColour); // onvert hsb to rgb then make a Java Color
                         /* 
-                        // djm original
+                        // djm not needed
                         Color col = Color.getHSBColor(h,0.8f,b);
                         int red = col.getRed();
                         int green = col.getGreen();
                         int blue = col.getBlue();
-                        //djm 
                         */
                         this.pen = new Pen(convertedColour);
                         alt = h;
                     }
                     this.g1.DrawLine(this.pen, x, y, x + 1, y);
                 }
-            //showStatus("Mandelbrot-Set ready - please select zoom area with pressed mouse.");
+            this.Text = "Mandelbrot-Set ready - please select zoom area with pressed mouse.";
+            // showStatus("Mandelbrot-Set ready - please select zoom area with pressed mouse."); // djm original java
             this.Cursor = this.c2;
             // setCursor(c2); // djm original java
             action = true;
