@@ -15,12 +15,13 @@ namespace java_fractal_conversion
         private static double xstart, ystart, xende, yende, xzoom, yzoom;
         private static bool action, rectangle, finished;
         private static float xy;
-        // private Image picture; // djm original java - now replaced with private PictureBox picture;
         private Graphics g1;
         private Cursor c1, c2;
-        // private HSB HSBcol = new HSB(); // djm original
-        public Bitmap bitmap;
+        public Bitmap Bitmap;
         private Pen pen;
+        // private Image picture; // djm original java 
+        // private HSB HSBcol = new HSB(); // djm not needed
+
         public Form1()
         {
             this.InitializeComponent();
@@ -28,24 +29,19 @@ namespace java_fractal_conversion
             //addMouseListener(this);
             //addMouseMotionListener(this);
             this.c1 = Cursors.WaitCursor;
-            // c1 = new Cursor(Cursor.WAIT_CURSOR); // djm original java
-            this.c2 = Cursors.Cross;
-            // c2 = new Cursor(Cursor.CROSSHAIR_CURSOR); // djm original java
-            x1 = this.picture.Width;
-            // x1 = getSize().width; // djm original java
-            y1 = this.picture.Height;
-            // y1 = getSize().height; // djm original java
+            this.c2 = Cursors.Cross; // c1 = new Cursor(Cursor.WAIT_CURSOR); // djm original java
+            x1 = this.picture.Width;  // x1 = getSize().width; // djm original java
+            y1 = this.picture.Height;  // y1 = getSize().height; // djm original java     
             xy = (float)x1 / (float)y1;
-            this.bitmap = new Bitmap(x1, y1);
-            // picture = createImage(x1, y1); // djm original java
-            this.g1 = Graphics.FromImage(this.bitmap);
-            // g1 = picture.getGraphics(); // djm original java
+
+            this.Bitmap = new Bitmap(x1, y1); // picture = createImage(x1, y1); // djm original java
+            this.g1 = Graphics.FromImage(this.Bitmap); // g1 = picture.getGraphics(); // djm original java
+  
             finished = true;
             this.Start();
         }
 
-        public void Start()
-        // djm original start()
+        public void Start() // djm original start()
         {
             action = false;
             rectangle = false;
@@ -55,8 +51,7 @@ namespace java_fractal_conversion
             this.Mandelbrot();
         }
 
-        private void Initvalues() // reset start values
-        // djm original initValues()
+        private void Initvalues() // reset start values // djm original initValues()
         {
             xstart = SX;
             ystart = SY;
@@ -66,17 +61,15 @@ namespace java_fractal_conversion
                 xstart = xende - (yende - ystart) * (double)xy;
         }
 
-        private void Mandelbrot() // calculate all points
-        // djm original mandelbrot()
+        private void Mandelbrot() // calculate all points // djm original mandelbrot()
         {
             int x, y;
             float h, b, alt = 0.0f;
 
             action = false;
-            this.Cursor = this.c1;
-            // setCursor(c1); // djm original java
-            this.Text = "Mandelbrot-Set will be produced - please wait...";
-            // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
+            this.Cursor = this.c1; // setCursor(c1); // djm original java
+            this.Text = "Mandelbrot-Set will be produced - please wait..."; // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
+            
             for (x = 0; x < x1; x += 2)
                 for (y = 0; y < y1; y++)
                 {
@@ -86,23 +79,19 @@ namespace java_fractal_conversion
                         b = 1.0f - h * h; // brightness
 
                         var customColour = new HSBColor(h * 255, 0.8f * 255, b * 255); // hsb colour
-                        var convertedColour = HSBColor.FromHSB(customColour); // onvert hsb to rgb then make a Java Color
-                        /* 
-                        // djm not needed
-                        Color col = Color.getHSBColor(h,0.8f,b);
-                        int red = col.getRed();
-                        int green = col.getGreen();
-                        int blue = col.getBlue();
-                        */
+                        var convertedColour = HSBColor.FromHSB(customColour); // convert hsb to rgb then make a Java Color
+                        // Color col = Color.getHSBColor(h,0.8f,b); // djm not needed
+                        // int red = col.getRed(); // djm not needed
+                        // int green = col.getGreen(); // djm not needed
+                        // int blue = col.getBlue(); // djm not needed
+                        
                         this.pen = new Pen(convertedColour);
                         alt = h;
                     }
                     this.g1.DrawLine(this.pen, x, y, x + 1, y);
                 }
-            this.Text = "Mandelbrot-Set ready - please select zoom area with pressed mouse.";
-            // showStatus("Mandelbrot-Set ready - please select zoom area with pressed mouse."); // djm original java
-            this.Cursor = this.c2;
-            // setCursor(c2); // djm original java
+            this.Text = "Mandelbrot-Set ready - please select zoom area with pressed mouse."; // showStatus("Mandelbrot-Set ready - please select zoom area with pressed mouse."); // djm original java
+            this.Cursor = this.c2; // setCursor(c2); // djm original java
             action = true;
         }
 
@@ -122,6 +111,37 @@ namespace java_fractal_conversion
             return (float)j / (float)MAX;
         }
 
+
+        public void Paint(Graphics g)
+        {
+            this.Update(g);
+        }
+
+        public void Update(Graphics g)
+        {
+            g.DrawImage(this.Bitmap, 0, 0);
+            if (rectangle)
+            {
+                this.pen = new Pen(Color.White); // use a new pen to prevent memory leak // this.pen.Color = Color.White; throws Parameter is not valid exception
+                if (xs < xe)
+                {
+                    if (ys < ye) g.DrawRectangle(this.pen, xs, ys, (xe - xs), (ye - ys));
+                    else g.DrawRectangle(this.pen, xs, ye, (xe - xs), (ys - ye));
+                }
+                else
+                {
+                    if (ys < ye) 
+                    {
+                        g.DrawRectangle(this.pen, xe, ys, (xs - xe), (ye - ys));
+                    } else  {
+                        g.DrawRectangle(this.pen, xe, ye, (xs - xe), (ys - ye));
+                    }
+                }
+
+                this.pen.Dispose();  // Release all pen resources
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -134,15 +154,14 @@ namespace java_fractal_conversion
 
         private void picture_Paint(object sender, PaintEventArgs e)
         {
-            // Put the bitmap on the window
-            Graphics windowG = e.Graphics;
-            windowG.DrawImageUnscaled(this.bitmap, 0, 0);
+            this.Paint(e.Graphics);
         }
 
-        private void picture_MouseDown(object sender, MouseEventArgs e)
+        private void picture_MouseDown(object sender, MouseEventArgs e) // public void mousePressed(MouseEvent e) // djm original
         {
+            // e.consume(); // djm not needed
 
-            if (e.Button == MouseButtons.Left) // e.consume(); // djm original Java
+            if (action && e.Button == MouseButtons.Left) // e.consume(); // djm original Java
             {
                 xs = e.X; // xs = e.getX(); // djm original Java
                 ys = e.Y; // ys = e.getY(); // djm original Java
@@ -150,7 +169,7 @@ namespace java_fractal_conversion
 
         }
 
-        private void picture_MouseUp(object sender, MouseEventArgs e)
+        private void picture_MouseUp(object sender, MouseEventArgs e) // public void mouseReleased(MouseEvent e) // djm original java
         {
             int z, w;
 
@@ -186,9 +205,22 @@ namespace java_fractal_conversion
                 yzoom = (yende - ystart) / (double)y1;
                 this.Mandelbrot();
                 rectangle = false;
-                // Redraw picture and child components
-                this.Refresh(); // repaint(); // djm original Java
+                this.Refresh();  // Redraw picture and child components // repaint(); // djm original Java
             }
+        }
+
+        private void picture_MouseMove(object sender, MouseEventArgs e) // public void mouseDragged(MouseEvent e) // djm original java
+        {
+            // e.consume(); // djm not needed
+
+            if (action && e.Button == MouseButtons.Left) // if (action); // djm original Java
+            {
+                xe = e.X; // xe = e.getX(); // djm original Java
+                ye = e.Y; // ye = e.getY(); // djm original Java
+                rectangle = true; // set to true so selected area drawn in Update method
+                this.Refresh();  // Redraw picture and child components
+            }
+
         }
     }
 }
