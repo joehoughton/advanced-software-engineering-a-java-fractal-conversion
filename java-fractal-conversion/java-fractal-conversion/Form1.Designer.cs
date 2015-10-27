@@ -33,7 +33,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -75,20 +74,16 @@
             // saveStateToolStripMenuItem
             // 
             this.saveStateToolStripMenuItem.Name = "saveStateToolStripMenuItem";
-            this.saveStateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveStateToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.saveStateToolStripMenuItem.Text = "Save State";
             this.saveStateToolStripMenuItem.Click += new System.EventHandler(this.saveStateToolStripMenuItem_Click);
             // 
             // loadStateToolStripMenuItem
             // 
             this.loadStateToolStripMenuItem.Name = "loadStateToolStripMenuItem";
-            this.loadStateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadStateToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.loadStateToolStripMenuItem.Text = "Load State";
             this.loadStateToolStripMenuItem.Click += new System.EventHandler(this.loadStateToolStripMenuItem_Click);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -116,7 +111,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveStateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadStateToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
 
     }
 }

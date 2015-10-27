@@ -3,10 +3,11 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Xml.Linq;
+using System.IO;
+using System.Xml;
 
 namespace java_fractal_conversion
 {
-
     public partial class Form1 : Form
     {
         private const int MAX = 256;      // max iterations
@@ -243,10 +244,11 @@ namespace java_fractal_conversion
         {
             var saveFileDialog = new SaveFileDialog
                                      {
-                                         Filter = "XML files (*.xml)|*.xml",
-                                         CreatePrompt = true,
-                                         FileName = "fractal"
+                                         Filter = "XML files (*.xml)|*.xml", // only allow xml files to be saved
+                                         CreatePrompt = true, // make user confirm they want to save file
+                                         FileName = "fractal" // default name of xml file to be saved
                                      };
+
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -254,21 +256,21 @@ namespace java_fractal_conversion
                     var converter = TypeDescriptor.GetConverter(typeof(Bitmap));
                     var image = Convert.ToBase64String((byte[])converter.ConvertTo(this.Bitmap, typeof(byte[]))); // convert bitmap to byte array and convert array to string
 
-                    var document = new XDocument(
-                        new XElement("state",
-                        new XElement("image", image),
-                        new XElement("x1", x1),
-                        new XElement("y1", y1),
+                    var document = new XDocument( // define xml tree
+                        new XElement("state", // parent node - the identifier 
+                        new XElement("image", image), // remaining child nodes containing current bitmap values
+                        new XElement("xstart", xstart),
+                        new XElement("ystart", ystart),
                         new XElement("xzoom", xzoom),
                         new XElement("yzoom", yzoom)
                     ));
 
-                    document.Save(saveFileDialog.FileName); // Save document to the selected path
+                    document.Save(saveFileDialog.FileName); // save document to the selected path
                     MessageBox.Show(String.Format("The fractal has been saved at {0}", saveFileDialog.FileName));
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(String.Format("Failed to save fractal state: {0}", ex.Message)); // Failed to convert to xml and save, display error message
+                    MessageBox.Show(String.Format("Failed to save fractal state: {0}", ex.Message)); // failed to convert to xml and save, display error message
                 }
 
             }
@@ -277,7 +279,48 @@ namespace java_fractal_conversion
 
         private void loadStateToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "XML files (*.xml)|*.xml", // only display xml files in directory
+                DefaultExt = "fractal"
+            };
 
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Added as a precaution as the Filter will only display xml files anyway
+                if (!String.Equals(Path.GetExtension(openFileDialog.FileName), ".xml", StringComparison.OrdinalIgnoreCase))
+                {
+                    MessageBox.Show("You must select an XML file.");
+                    return;
+                }
+
+                try
+                {
+                    var streamReader = new StreamReader(openFileDialog.FileName); // initialise stream reader to read selected xml file
+                    using (streamReader) // using statement disposes of system resources automatically
+                    {
+                        var document = new XmlDocument();
+                        document.Load(openFileDialog.OpenFile());
+                        var xnList = document.SelectNodes("/state"); // select parent node
+
+                        foreach (XmlNode xmlNode in xnList) // loop through child nodes to access stored bitmap attributes
+                        {
+                            xstart = Convert.ToDouble(xmlNode["xstart"].InnerText);
+                            ystart = Convert.ToDouble(xmlNode["ystart"].InnerText);
+                            xzoom = Convert.ToDouble(xmlNode["xzoom"].InnerText);
+                            yzoom = Convert.ToDouble(xmlNode["yzoom"].InnerText);
+                        }
+                        this.Mandelbrot();
+                        this.Refresh();  // Redraw picture and child components // repaint(); // djm original Java
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format("Failed to load fractal state: {0}", ex.Message)); // Failed to load
+                }
+
+            }
         }
     }
 }
