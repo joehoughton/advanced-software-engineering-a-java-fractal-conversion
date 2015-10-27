@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
+using System.Xml.Linq;
 
 namespace java_fractal_conversion
 {
+
     public partial class Form1 : Form
     {
         private const int MAX = 256;      // max iterations
@@ -234,6 +237,47 @@ namespace java_fractal_conversion
         private void picture_MouseLeave(object sender, EventArgs e)
         {
             this.Cursor = Cursors.Default;
+        }
+
+        private void saveStateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog
+                                     {
+                                         Filter = "XML files (*.xml)|*.xml",
+                                         CreatePrompt = true,
+                                         FileName = "fractal"
+                                     };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var converter = TypeDescriptor.GetConverter(typeof(Bitmap));
+                    var image = Convert.ToBase64String((byte[])converter.ConvertTo(this.Bitmap, typeof(byte[]))); // convert bitmap to byte array and convert array to string
+
+                    var document = new XDocument(
+                        new XElement("state",
+                        new XElement("image", image),
+                        new XElement("x1", x1),
+                        new XElement("y1", y1),
+                        new XElement("xzoom", xzoom),
+                        new XElement("yzoom", yzoom)
+                    ));
+
+                    document.Save(saveFileDialog.FileName); // Save document to the selected path
+                    MessageBox.Show(String.Format("The fractal has been saved at {0}", saveFileDialog.FileName));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format("Failed to save fractal state: {0}", ex.Message)); // Failed to convert to xml and save, display error message
+                }
+
+            }
+
+        }
+
+        private void loadStateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
