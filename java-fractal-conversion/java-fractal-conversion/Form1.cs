@@ -8,6 +8,8 @@ using System.Xml;
 
 namespace java_fractal_conversion
 {
+    using System.Drawing.Imaging;
+
     public partial class Form1 : Form
     {
         private const int MAX = 256;      // max iterations
@@ -248,7 +250,7 @@ namespace java_fractal_conversion
                                      {
                                          Filter = "XML files (*.xml)|*.xml", // only allow xml files to be saved
                                          CreatePrompt = true, // make user confirm they want to save file
-                                         FileName = "fractal" // default name of xml file to be saved
+                                         FileName = "fractal-state" // default name of xml file to be saved
                                      };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -268,7 +270,10 @@ namespace java_fractal_conversion
                     ));
 
                     document.Save(saveFileDialog.FileName); // save document to the selected path
-                    this.label1.Text = (String.Format("Successfully saved fractal state at {0}", saveFileDialog.FileName));
+
+                    string selectedFileExtension = Path.GetExtension(saveFileDialog.FileName); // get file extension (in this case xml)
+
+                    this.label1.Text = (String.Format("Successfully saved fractal state at {0} in {01} format.", saveFileDialog.FileName, selectedFileExtension));
                 }
                 catch (Exception ex)
                 {
@@ -314,13 +319,15 @@ namespace java_fractal_conversion
                         }
                         this.Mandelbrot();
                         this.Refresh();  // Redraw picture and child components // repaint(); // djm original Java
-                        this.label1.Text = (String.Format("Successfully loaded fractal state {0}", openFileDialog.FileName));
+
+                        string selectedFileExtension = Path.GetExtension(openFileDialog.FileName); // get file extension (in this case xml)
+                        this.label1.Text = (String.Format("Successfully loaded fractal state from {0} at {1}.", selectedFileExtension, openFileDialog.FileName));
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    this.label1.Text = (String.Format("Failed to load fractal state. {0}", ex.Message)); // failed to load
+                    this.label1.Text = (String.Format("Failed to load fractal state. {0}", ex.Message)); // failed to load, display error message
                 }
 
             }
@@ -357,6 +364,46 @@ namespace java_fractal_conversion
         private void buttonReset_MouseClick(object sender, MouseEventArgs e)
         {
             this.Cursor = Cursors.Hand; // set cursor to hand on click
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "JPEG|*.JPG|PNG|*.PNG|BMP|*.BMP", // only allow png, bmp or jpg to be saved
+                CreatePrompt = true, // make user confirm they want to save file
+                FileName = "fractal-image" // default name of image file to be saved
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFileExtension = Path.GetExtension(saveFileDialog.FileName); // store the users selected extension 
+                
+                ImageFormat format;
+                switch (selectedFileExtension)
+                {
+                    case ".jpg":
+                        format = ImageFormat.Jpeg;
+                        break;
+                    case ".bmp":
+                        format = ImageFormat.Bmp;
+                        break;
+                    default:
+                        format= ImageFormat.Png; 
+                        break;
+                }
+
+                try
+                {
+                    this.Bitmap.Save(saveFileDialog.FileName, format); // save image using users file name and selected format
+                    this.label1.Text = (String.Format("Successfully saved fractal at {0} in {1} format.", saveFileDialog.FileName, selectedFileExtension));
+                }
+                catch (Exception ex)
+                {
+                    this.label1.Text = (String.Format("Failed to save image. {0}", ex.Message)); // failed to save image, display error message
+                }
+            }
+
         }
     }
 }
