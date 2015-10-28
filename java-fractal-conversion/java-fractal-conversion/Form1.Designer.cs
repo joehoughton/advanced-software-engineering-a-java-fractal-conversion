@@ -33,15 +33,19 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tv = new System.Windows.Forms.PictureBox();
+            this.buttonReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tv)).BeginInit();
             this.SuspendLayout();
             // 
             // picture
             // 
-            this.picture.Location = new System.Drawing.Point(49, 44);
+            this.picture.Location = new System.Drawing.Point(63, 129);
             this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(640, 480);
+            this.picture.Size = new System.Drawing.Size(460, 338);
             this.picture.TabIndex = 0;
             this.picture.TabStop = false;
             this.picture.Click += new System.EventHandler(this.picture_Click);
@@ -54,11 +58,12 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1071, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -66,32 +71,69 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveStateToolStripMenuItem,
-            this.loadStateToolStripMenuItem});
+            this.loadStateToolStripMenuItem,
+            this.resetToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.fileToolStripMenuItem.Text = "State";
             // 
             // saveStateToolStripMenuItem
             // 
             this.saveStateToolStripMenuItem.Name = "saveStateToolStripMenuItem";
-            this.saveStateToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.saveStateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveStateToolStripMenuItem.Text = "Save State";
             this.saveStateToolStripMenuItem.Click += new System.EventHandler(this.saveStateToolStripMenuItem_Click);
             // 
             // loadStateToolStripMenuItem
             // 
             this.loadStateToolStripMenuItem.Name = "loadStateToolStripMenuItem";
-            this.loadStateToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.loadStateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadStateToolStripMenuItem.Text = "Load State";
             this.loadStateToolStripMenuItem.Click += new System.EventHandler(this.loadStateToolStripMenuItem_Click);
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resetToolStripMenuItem.Text = "Restart";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            // 
+            // tv
+            // 
+            this.tv.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tv.BackgroundImage = global::java_fractal_conversion.Properties.Resources.tv;
+            this.tv.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.tv.Location = new System.Drawing.Point(-58, 50);
+            this.tv.Name = "tv";
+            this.tv.Size = new System.Drawing.Size(830, 534);
+            this.tv.TabIndex = 2;
+            this.tv.TabStop = false;
+            // 
+            // buttonReset
+            // 
+            this.buttonReset.BackColor = System.Drawing.Color.OrangeRed;
+            this.buttonReset.Font = new System.Drawing.Font("Stencil", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReset.Location = new System.Drawing.Point(559, 268);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(122, 36);
+            this.buttonReset.TabIndex = 3;
+            this.buttonReset.Text = "Reset";
+            this.buttonReset.UseVisualStyleBackColor = false;
+            this.buttonReset.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            this.buttonReset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonReset_MouseClick);
+            this.buttonReset.MouseEnter += new System.EventHandler(this.buttonReset_MouseEnter);
+            this.buttonReset.MouseLeave += new System.EventHandler(this.buttonReset_MouseLeave);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 608);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.picture);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.tv);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -99,6 +141,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,6 +154,9 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveStateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadStateToolStripMenuItem;
+        private System.Windows.Forms.PictureBox tv;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
+        private System.Windows.Forms.Button buttonReset;
 
     }
 }

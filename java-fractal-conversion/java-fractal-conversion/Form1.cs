@@ -18,11 +18,12 @@ namespace java_fractal_conversion
         private const int ScaleUp = 255;
         private static int x1, y1, xs, ys, xe, ye;
         private static double xstart, ystart, xende, yende, xzoom, yzoom;
-        private static bool action, rectangle, finished;
+        private static bool action, rectangle;
         private static float xy;
         private readonly Graphics g1;
         public Bitmap Bitmap;
         private Pen pen;
+        // private static bool finished;  // djm not needed - can reset state without in resetToolStripMenuItem_Click()
         // private Cursor c1, c2; // djm not needed // now changed in picture_MouseEnter and picture_MouseLeave 
         // private Image picture; // djm not needed 
         // private HSB HSBcol = new HSB(); // djm not needed
@@ -30,7 +31,7 @@ namespace java_fractal_conversion
         public Form1()
         {
             this.InitializeComponent();
-            finished = false;
+            // finished = false; // djm not needed - can reset state without in resetToolStripMenuItem_Click()
             // addMouseListener(this); // djm not needed
             // addMouseMotionListener(this); // djm not needed
             // this.c1 = Cursors.WaitCursor; // replaced by picture_MouseEnter() // c1 = new Cursor(Cursor.WAIT_CURSOR); // djm original java
@@ -42,7 +43,7 @@ namespace java_fractal_conversion
             this.Bitmap = new Bitmap(x1, y1); // picture = createImage(x1, y1); // djm original java
             this.g1 = Graphics.FromImage(this.Bitmap); // g1 = picture.getGraphics(); // djm original java
 
-            finished = true;
+            // finished = true; // djm not needed - can reset state without in resetToolStripMenuItem_Click()
             this.Start();
         }
 
@@ -317,10 +318,43 @@ namespace java_fractal_conversion
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(String.Format("Failed to load fractal state: {0}", ex.Message)); // Failed to load
+                    MessageBox.Show(String.Format("Failed to load fractal state: {0}", ex.Message)); // failed to load
                 }
 
             }
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // djm not needed
+            /*if (finished)
+            {
+                removeMouseListener(this);
+                removeMouseMotionListener(this);
+                picture = null;
+                g1 = null;
+                c1 = null;
+                c2 = null;
+                System.gc(); // garbage collection
+            }*/
+
+            this.Start(); // reset zoom, initial variables, call mandlebrot
+            this.Refresh(); // Redraw picture and child components 
+        }
+
+        private void buttonReset_MouseEnter(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.Hand; // set cursor to hand on reset button hover
+        }
+
+        private void buttonReset_MouseLeave(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.Default; // set cursor to default arrow on leave of reset button
+        }
+
+        private void buttonReset_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.Cursor = Cursors.Hand; // set cursor to hand on click
         }
     }
 }
