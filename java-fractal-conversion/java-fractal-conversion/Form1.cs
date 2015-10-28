@@ -74,7 +74,8 @@ namespace java_fractal_conversion
 
             action = false;
             this.Cursor = Cursors.WaitCursor; // setCursor(c1); // djm original java
-            this.Text = "Mandelbrot-Set will be produced - please wait..."; // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
+            this.Text = "C3375905";
+            this.label1.Text = "Mandelbrot-Set will be produced - please wait...";  // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
 
             for (x = 0; x < x1; x += 2)
                 for (y = 0; y < y1; y++)
@@ -98,7 +99,7 @@ namespace java_fractal_conversion
                 }
 
             this.Cursor = Cursors.Cross; // setCursor(c1); // djm original java
-            this.Text = "Mandelbrot-Set ready - please select zoom area with pressed mouse."; // showStatus("Mandelbrot-Set ready - please select zoom area with pressed mouse."); // djm original java
+            this.label1.Text = "Mandelbrot-Set ready - please select zoom area with pressed mouse."; // showStatus("Mandelbrot-Set ready - please select zoom area with pressed mouse."); // djm original java
             action = true;
         }
 
@@ -267,11 +268,11 @@ namespace java_fractal_conversion
                     ));
 
                     document.Save(saveFileDialog.FileName); // save document to the selected path
-                    MessageBox.Show(String.Format("The fractal has been saved at {0}", saveFileDialog.FileName));
+                    this.label1.Text = (String.Format("Successfully saved fractal state at {0}", saveFileDialog.FileName));
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(String.Format("Failed to save fractal state: {0}", ex.Message)); // failed to convert to xml and save, display error message
+                    this.label1.Text = (String.Format("Failed to save fractal state. {0}", ex.Message)); // failed to convert to xml and save, display error message
                 }
 
             }
@@ -291,7 +292,7 @@ namespace java_fractal_conversion
                 // Added as a precaution as the Filter will only display xml files anyway
                 if (!String.Equals(Path.GetExtension(openFileDialog.FileName), ".xml", StringComparison.OrdinalIgnoreCase))
                 {
-                    MessageBox.Show("You must select an XML file.");
+                    this.label1.Text = ("You must select an XML file.");
                     return;
                 }
 
@@ -313,12 +314,13 @@ namespace java_fractal_conversion
                         }
                         this.Mandelbrot();
                         this.Refresh();  // Redraw picture and child components // repaint(); // djm original Java
+                        this.label1.Text = (String.Format("Successfully loaded fractal state {0}", openFileDialog.FileName));
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(String.Format("Failed to load fractal state: {0}", ex.Message)); // failed to load
+                    this.label1.Text = (String.Format("Failed to load fractal state. {0}", ex.Message)); // failed to load
                 }
 
             }

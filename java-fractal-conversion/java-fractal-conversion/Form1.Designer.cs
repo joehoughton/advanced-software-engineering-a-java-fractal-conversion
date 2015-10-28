@@ -36,6 +36,7 @@
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tv = new System.Windows.Forms.PictureBox();
             this.buttonReset = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tv)).BeginInit();
@@ -63,7 +64,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(784, 29);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -73,28 +74,30 @@
             this.saveStateToolStripMenuItem,
             this.loadStateToolStripMenuItem,
             this.resetToolStripMenuItem});
+            this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(56, 25);
             this.fileToolStripMenuItem.Text = "State";
             // 
             // saveStateToolStripMenuItem
             // 
             this.saveStateToolStripMenuItem.Name = "saveStateToolStripMenuItem";
-            this.saveStateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveStateToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.saveStateToolStripMenuItem.Text = "Save State";
             this.saveStateToolStripMenuItem.Click += new System.EventHandler(this.saveStateToolStripMenuItem_Click);
             // 
             // loadStateToolStripMenuItem
             // 
             this.loadStateToolStripMenuItem.Name = "loadStateToolStripMenuItem";
-            this.loadStateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadStateToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.loadStateToolStripMenuItem.Text = "Load State";
             this.loadStateToolStripMenuItem.Click += new System.EventHandler(this.loadStateToolStripMenuItem_Click);
             // 
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.resetToolStripMenuItem.Text = "Restart";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
@@ -117,12 +120,23 @@
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(122, 36);
             this.buttonReset.TabIndex = 3;
-            this.buttonReset.Text = "Reset";
+            this.buttonReset.Text = "Restart";
             this.buttonReset.UseVisualStyleBackColor = false;
             this.buttonReset.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             this.buttonReset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonReset_MouseClick);
             this.buttonReset.MouseEnter += new System.EventHandler(this.buttonReset_MouseEnter);
             this.buttonReset.MouseLeave += new System.EventHandler(this.buttonReset_MouseLeave);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label1.Location = new System.Drawing.Point(12, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 20);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "label1";
             // 
             // Form1
             // 
@@ -130,6 +144,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.picture);
             this.Controls.Add(this.menuStrip1);
@@ -157,6 +172,7 @@
         private System.Windows.Forms.PictureBox tv;
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.Label label1;
 
     }
 }
