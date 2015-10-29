@@ -27,7 +27,6 @@ namespace java_fractal_conversion
         private Pen pen;
         private int ticks; // timer in milliseconds
         private bool cycleForwards = true;
-
         // private static bool finished;  // djm not needed - can reset state without in resetToolStripMenuItem_Click()
         // private Cursor c1, c2; // djm not needed // now changed in picture_MouseEnter and picture_MouseLeave 
         // private Image picture; // djm not needed 
@@ -155,16 +154,6 @@ namespace java_fractal_conversion
 
                 pen.Dispose();  // release all pen resources
             }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void picture_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void picture_Paint(object sender, PaintEventArgs e)
@@ -349,8 +338,11 @@ namespace java_fractal_conversion
                 c2 = null;
                 System.gc(); // garbage collection
             }*/
+            timer.Stop(); // stop timer
+            timer.Dispose(); // dispose of time
+            checkBoxColourCycle.Checked = false; // uncheck colour cycle checkbox
             j = 0; // reset fractal colour to red
-            colourPaletteLabel.Text = "Selected: Red"; // reset label to default colour
+            colourPaletteLabel.Text = "Select a colour:"; // no colour selected
             Start(); // reset zoom, initial variables, call mandlebrot
             Refresh(); // Redraw picture and child components 
         }
@@ -502,7 +494,10 @@ namespace java_fractal_conversion
             Cursor = Cursors.Default;
         }
 
-        // colour cycle checkbox
+        /* colour cycle checkbox - selecting the checkbox starts a timer. The timer_Tick 
+        method is called every 100 milliseconds at default. At each call, the value of j is
+        incremended. If j reaches 240 (dark colour) it is decremented to lighten
+        the fractal. At 0 (red) it is incremented again.*/    
         private void checkBoxColourCycle_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxColourCycle.Checked) // cycle checkbox selected

@@ -66,7 +66,6 @@
             this.picture.Size = new System.Drawing.Size(460, 338);
             this.picture.TabIndex = 0;
             this.picture.TabStop = false;
-            this.picture.Click += new System.EventHandler(this.picture_Click);
             this.picture.Paint += new System.Windows.Forms.PaintEventHandler(this.picture_Paint);
             this.picture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picture_MouseDown);
             this.picture.MouseEnter += new System.EventHandler(this.picture_MouseEnter);
@@ -292,9 +291,9 @@
             this.colourPaletteLabel.ForeColor = System.Drawing.Color.White;
             this.colourPaletteLabel.Location = new System.Drawing.Point(552, 262);
             this.colourPaletteLabel.Name = "colourPaletteLabel";
-            this.colourPaletteLabel.Size = new System.Drawing.Size(89, 19);
+            this.colourPaletteLabel.Size = new System.Drawing.Size(100, 19);
             this.colourPaletteLabel.TabIndex = 16;
-            this.colourPaletteLabel.Text = "Selected: Red";
+            this.colourPaletteLabel.Text = "Select a colour:";
             // 
             // trackBarColourCycle
             // 
@@ -356,7 +355,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseEnter += new System.EventHandler(this.Form1_MouseEnter);
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.menuStrip1.ResumeLayout(false);
