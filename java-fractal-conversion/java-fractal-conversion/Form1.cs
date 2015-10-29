@@ -17,7 +17,7 @@ namespace java_fractal_conversion
         private const double EX = 0.6;    // end value real
         private const double EY = 1.125;  // end value imaginary
         private const int ScaleUp = 255;
-        private int j = 0; // sets colour of fractal
+        private int j; // sets colour of fractal - default to 0
         private static int x1, y1, xs, ys, xe, ye;
         private static double xstart, ystart, xende, yende, xzoom, yzoom;
         private static bool action, rectangle;
@@ -25,6 +25,9 @@ namespace java_fractal_conversion
         private readonly Graphics g1;
         public Bitmap Bitmap;
         private Pen pen;
+        private int ticks; // timer in milliseconds
+        private bool cycleForwards = true;
+
         // private static bool finished;  // djm not needed - can reset state without in resetToolStripMenuItem_Click()
         // private Cursor c1, c2; // djm not needed // now changed in picture_MouseEnter and picture_MouseLeave 
         // private Image picture; // djm not needed 
@@ -32,31 +35,31 @@ namespace java_fractal_conversion
 
         public Form1()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             // finished = false; // djm not needed - can reset state without in resetToolStripMenuItem_Click()
             // addMouseListener(this); // djm not needed
             // addMouseMotionListener(this); // djm not needed
-            // this.c1 = Cursors.WaitCursor; // replaced by picture_MouseEnter() // c1 = new Cursor(Cursor.WAIT_CURSOR); // djm original java
-            // this.c2 = Cursors.Cross; // replaced by picture_MouseLeave() // c1 = new Cursor(Cursor.WAIT_CURSOR); // djm original java
-            x1 = this.picture.Width;  // x1 = getSize().width; // djm original java
-            y1 = this.picture.Height;  // y1 = getSize().height; // djm original java
+            // c1 = Cursors.WaitCursor; // replaced by picture_MouseEnter() // c1 = new Cursor(Cursor.WAIT_CURSOR); // djm original java
+            // c2 = Cursors.Cross; // replaced by picture_MouseLeave() // c1 = new Cursor(Cursor.WAIT_CURSOR); // djm original java
+            x1 = picture.Width;  // x1 = getSize().width; // djm original java
+            y1 = picture.Height;  // y1 = getSize().height; // djm original java
             xy = (float)x1 / (float)y1;
 
-            this.Bitmap = new Bitmap(x1, y1); // picture = createImage(x1, y1); // djm original java
-            this.g1 = Graphics.FromImage(this.Bitmap); // g1 = picture.getGraphics(); // djm original java
+            Bitmap = new Bitmap(x1, y1); // picture = createImage(x1, y1); // djm original java
+            g1 = Graphics.FromImage(Bitmap); // g1 = picture.getGraphics(); // djm original java
 
             // finished = true; // djm not needed - can reset state without in resetToolStripMenuItem_Click()
-            this.Start();
+            Start();
         }
 
         public void Start() // djm original start()
         {
             action = false;
             rectangle = false;
-            this.Initvalues();
+            Initvalues();
             xzoom = (xende - xstart) / (double)x1;
             yzoom = (yende - ystart) / (double)y1;
-            this.Mandelbrot();
+            Mandelbrot();
         }
 
         private void Initvalues() // reset start values // djm original initValues()
@@ -75,14 +78,14 @@ namespace java_fractal_conversion
             float h, b, alt = 0.0f;
 
             action = false;
-            this.Cursor = Cursors.WaitCursor; // setCursor(c1); // djm original java
-            this.Text = "C3375905";
-            this.message.Text = "Mandelbrot-Set will be produced - please wait...";  // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
+            Cursor = Cursors.WaitCursor; // setCursor(c1); // djm original java
+            Text = "C3375905";
+            message.Text = "Mandelbrot-Set will be produced - please wait...";  // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
 
-            for (x = 0; x < x1; x += 2)
-                for (y = 0; y < y1; y++)
+            for (x = 0; x < x1; x += 2) // x less than width - draw lines from left to right
+                for (y = 0; y < y1; y++) // draw 1 pixel at a time
                 {
-                    h = this.Pointcolour(xstart + xzoom * (double)x, ystart + yzoom * (double)y); // color value
+                    h = Pointcolour(xstart + xzoom * (double)x, ystart + yzoom * (double)y); // color value
                     if (h != alt)
                     {
                         b = 1.0f - h * h; // brightness
@@ -94,14 +97,14 @@ namespace java_fractal_conversion
                         // int red = col.getRed(); // djm not needed
                         // int green = col.getGreen(); // djm not needed
                         // int blue = col.getBlue(); // djm not needed
-                        this.pen = new Pen(convertedColour);
+                        pen = new Pen(convertedColour);
                         alt = h;
                     }
-                    this.g1.DrawLine(this.pen, x, y, x + 1, y);
+                    g1.DrawLine(pen, x, y, x + 1, y);
                 }
 
-            this.Cursor = Cursors.Cross; // setCursor(c1); // djm original java
-            this.message.Text = "Mandelbrot-Set ready - please select zoom area with pressed mouse."; // showStatus("Mandelbrot-Set ready - please select zoom area with pressed mouse."); // djm original java
+            Cursor = Cursors.Cross; // setCursor(c1); // djm original java
+            message.Text = "Mandelbrot-Set ready - please select zoom area with pressed mouse."; // showStatus("Mandelbrot-Set ready - please select zoom area with pressed mouse."); // djm original java
             action = true;
         }
 
@@ -109,7 +112,7 @@ namespace java_fractal_conversion
         {
             double r = 0.0, i = 0.0, m = 0.0;
 
-            var jReference = this.j;
+            var jReference = j;
 
             while ((jReference < MAX) && (m < 4.0)) // djm original while ((j < MAX) && (m < 4.0))
             {
@@ -124,33 +127,33 @@ namespace java_fractal_conversion
 
         public void Paint(Graphics g)
         {
-            this.Update(g);
+            Update(g);
         }
 
         public void Update(Graphics g)
         {
-            g.DrawImage(this.Bitmap, 0, 0);
+            g.DrawImage(Bitmap, 0, 0);
             if (rectangle)
             {
-                this.pen = new Pen(Color.White); // use a new pen to prevent memory leak // this.pen.Color = Color.White; throws Parameter is not valid exception
+                pen = new Pen(Color.White); // use a new pen to prevent memory leak // pen.Color = Color.White; throws Parameter is not valid exception
                 if (xs < xe)
                 {
-                    if (ys < ye) g.DrawRectangle(this.pen, xs, ys, (xe - xs), (ye - ys));
-                    else g.DrawRectangle(this.pen, xs, ye, (xe - xs), (ys - ye));
+                    if (ys < ye) g.DrawRectangle(pen, xs, ys, (xe - xs), (ye - ys));
+                    else g.DrawRectangle(pen, xs, ye, (xe - xs), (ys - ye));
                 }
                 else
                 {
                     if (ys < ye)
                     {
-                        g.DrawRectangle(this.pen, xe, ys, (xs - xe), (ye - ys));
+                        g.DrawRectangle(pen, xe, ys, (xs - xe), (ye - ys));
                     }
                     else
                     {
-                        g.DrawRectangle(this.pen, xe, ye, (xs - xe), (ys - ye));
+                        g.DrawRectangle(pen, xe, ye, (xs - xe), (ys - ye));
                     }
                 }
 
-                this.pen.Dispose();  // release all pen resources
+                pen.Dispose();  // release all pen resources
             }
         }
 
@@ -166,7 +169,7 @@ namespace java_fractal_conversion
 
         private void picture_Paint(object sender, PaintEventArgs e)
         {
-            this.Paint(e.Graphics);
+            Paint(e.Graphics);
         }
 
         private void picture_MouseDown(object sender, MouseEventArgs e) // public void mousePressed(MouseEvent e) // djm original
@@ -203,7 +206,7 @@ namespace java_fractal_conversion
                 }
                 w = (xe - xs);
                 z = (ye - ys);
-                if ((w < 2) && (z < 2)) this.Initvalues();
+                if ((w < 2) && (z < 2)) Initvalues();
                 else
                 {
                     if (((float)w > (float)z * xy)) ye = (int)((float)ys + (float)w / xy);
@@ -215,9 +218,9 @@ namespace java_fractal_conversion
                 }
                 xzoom = (xende - xstart) / (double)x1;
                 yzoom = (yende - ystart) / (double)y1;
-                this.Mandelbrot();
+                Mandelbrot();
                 rectangle = false;
-                this.Refresh();  // Redraw picture and child components // repaint(); // djm original Java
+                Refresh();  // Redraw picture and child components // repaint(); // djm original Java
             }
         }
 
@@ -229,19 +232,19 @@ namespace java_fractal_conversion
                 xe = e.X; // xe = e.getX(); // djm original Java
                 ye = e.Y; // ye = e.getY(); // djm original Java
                 rectangle = true; // set to true so selected area drawn in Update method
-                this.Refresh();  // Redraw picture and child components
+                Refresh();  // Redraw picture and child components
             }
 
         }
 
         private void picture_MouseEnter(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Cross;
+            Cursor = Cursors.Cross;
         }
 
         private void picture_MouseLeave(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Default;
+            Cursor = Cursors.Default;
         }
 
         private void saveStateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -258,7 +261,7 @@ namespace java_fractal_conversion
                 try
                 {
                     var converter = TypeDescriptor.GetConverter(typeof(Bitmap));
-                    var image = Convert.ToBase64String((byte[])converter.ConvertTo(this.Bitmap, typeof(byte[]))); // convert bitmap to byte array and convert array to string
+                    var image = Convert.ToBase64String((byte[])converter.ConvertTo(Bitmap, typeof(byte[]))); // convert bitmap to byte array and convert array to string
 
                     var document = new XDocument( // define xml tree
                         new XElement("state", // parent node - the identifier 
@@ -273,11 +276,11 @@ namespace java_fractal_conversion
 
                     string selectedFileExtension = Path.GetExtension(saveFileDialog.FileName); // get file extension (in this case xml)
 
-                    this.message.Text = (String.Format("Successfully saved fractal state at {0} in {01} format.", saveFileDialog.FileName, selectedFileExtension));
+                    message.Text = (String.Format("Successfully saved fractal state at {0} in {01} format.", saveFileDialog.FileName, selectedFileExtension));
                 }
                 catch (Exception ex)
                 {
-                    this.message.Text = (String.Format("Failed to save fractal state. {0}", ex.Message)); // failed to convert to xml and save, display error message
+                    message.Text = (String.Format("Failed to save fractal state. {0}", ex.Message)); // failed to convert to xml and save, display error message
                 }
 
             }
@@ -297,7 +300,7 @@ namespace java_fractal_conversion
                 // Added as a precaution as the Filter will only display xml files anyway
                 if (!String.Equals(Path.GetExtension(openFileDialog.FileName), ".xml", StringComparison.OrdinalIgnoreCase))
                 {
-                    this.message.Text = ("You must select an XML file.");
+                    message.Text = ("You must select an XML file.");
                     return;
                 }
 
@@ -317,17 +320,17 @@ namespace java_fractal_conversion
                             xzoom = Convert.ToDouble(xmlNode["xzoom"].InnerText);
                             yzoom = Convert.ToDouble(xmlNode["yzoom"].InnerText);
                         }
-                        this.Mandelbrot();
-                        this.Refresh();  // Redraw picture and child components // repaint(); // djm original Java
+                        Mandelbrot();
+                        Refresh();  // Redraw picture and child components // repaint(); // djm original Java
 
                         string selectedFileExtension = Path.GetExtension(openFileDialog.FileName); // get file extension (in this case xml)
-                        this.message.Text = (String.Format("Successfully loaded fractal state from {0} at {1}.", selectedFileExtension, openFileDialog.FileName));
+                        message.Text = (String.Format("Successfully loaded fractal state from {0} at {1}.", selectedFileExtension, openFileDialog.FileName));
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    this.message.Text = (String.Format("Failed to load fractal state. {0}", ex.Message)); // failed to load, display error message
+                    message.Text = (String.Format("Failed to load fractal state. {0}", ex.Message)); // failed to load, display error message
                 }
 
             }
@@ -346,30 +349,30 @@ namespace java_fractal_conversion
                 c2 = null;
                 System.gc(); // garbage collection
             }*/
-            this.j = 0; // reset fractal colour to red
-            this.colourPaletteLabel.Text = "Selected Colour: Red"; // reset label to default colour
-            this.Start(); // reset zoom, initial variables, call mandlebrot
-            this.Refresh(); // Redraw picture and child components 
+            j = 0; // reset fractal colour to red
+            colourPaletteLabel.Text = "Selected: Red"; // reset label to default colour
+            Start(); // reset zoom, initial variables, call mandlebrot
+            Refresh(); // Redraw picture and child components 
         }
 
         private void menuStrip1_MouseEnter(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Default;
+            Cursor = Cursors.Default;
         }
 
         private void buttonReset_MouseEnter(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Hand; // set cursor to hand on reset button hover
+            Cursor = Cursors.Hand; // set cursor to hand on reset button hover
         }
 
         private void buttonReset_MouseLeave(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Default; // set cursor to default arrow on leave of reset button
+            Cursor = Cursors.Default; // set cursor to default arrow on leave of reset button
         }
 
         private void buttonReset_MouseClick(object sender, MouseEventArgs e)
         {
-            this.Cursor = Cursors.Hand; // set cursor to hand on click
+            Cursor = Cursors.Hand; // set cursor to hand on click
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -401,12 +404,12 @@ namespace java_fractal_conversion
 
                 try
                 {
-                    this.Bitmap.Save(saveFileDialog.FileName, format); // save image using users file name and selected format
-                    this.message.Text = (String.Format("Successfully saved fractal at {0} in {1} format.", saveFileDialog.FileName, selectedFileExtension));
+                    Bitmap.Save(saveFileDialog.FileName, format); // save image using users file name and selected format
+                    message.Text = (String.Format("Successfully saved fractal at {0} in {1} format.", saveFileDialog.FileName, selectedFileExtension));
                 }
                 catch (Exception ex)
                 {
-                    this.message.Text = (String.Format("Failed to save image. {0}", ex.Message)); // failed to save image, display error message
+                    message.Text = (String.Format("Failed to save image. {0}", ex.Message)); // failed to save image, display error message
                 }
             }
 
@@ -415,92 +418,132 @@ namespace java_fractal_conversion
         // default form cursor 
         private void Form1_MouseEnter(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Default;
+            Cursor = Cursors.Default;
         }
 
         // tv image cursor 
         private void imageTv_MouseEnter(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Default;
+            Cursor = Cursors.Default;
         }
 
         // colour palette selection
         private void colourPaletteRed_Click(object sender, EventArgs e)
         {
-            this.j = 0;
-            this.colourPaletteLabel.Text = "Selected: Red";
-            this.Mandelbrot();
-            this.Refresh(); // Redraw picture and child components
+            j = 0;
+            colourPaletteLabel.Text = "Selected: Red";
+            Mandelbrot();
+            Refresh(); // Redraw picture and child components
         }
 
         private void colourPaletteOrange_Click(object sender, EventArgs e)
         {
-            this.j = 10;
-            this.colourPaletteLabel.Text = "Selected: Orange";
-            this.Mandelbrot();
-            this.Refresh(); // redraw picture and child components
+            j = 10;
+            colourPaletteLabel.Text = "Selected: Orange";
+            Mandelbrot();
+            Refresh(); // redraw picture and child components
         }
 
         private void colourPaletteYellow_Click(object sender, EventArgs e)
         {
-            this.j = 30;
-            this.colourPaletteLabel.Text = "Selected: Yellow";
-            this.Mandelbrot();
-            this.Refresh(); // redraw picture and child components
+            j = 30;
+            colourPaletteLabel.Text = "Selected: Yellow";
+            Mandelbrot();
+            Refresh(); // redraw picture and child components
         }
 
         private void colourPaletteGreen_Click(object sender, EventArgs e)
         {
-            this.j = 60;
-            this.colourPaletteLabel.Text = "Selected: Green";
-            this.Mandelbrot();
-            this.Refresh(); // redraw picture and child components
+            j = 60;
+            colourPaletteLabel.Text = "Selected: Green";
+            Mandelbrot();
+            Refresh(); // redraw picture and child components
         }
 
         private void colourPaletteTurquoise_Click(object sender, EventArgs e)
         {
-            this.j = 120;
-            this.colourPaletteLabel.Text = "Selected: Turquoise";
-            this.Mandelbrot();
-            this.Refresh(); // redraw picture and child components
+            j = 120;
+            colourPaletteLabel.Text = "Selected: Turquoise";
+            Mandelbrot();
+            Refresh(); // redraw picture and child components
         }
 
         private void colourPaletteBlue_Click(object sender, EventArgs e)
         {
-            this.j = 150;
-            this.colourPaletteLabel.Text = "Selected: Blue";
-            this.Mandelbrot();
-            this.Refresh(); // redraw picture and child components
+            j = 150;
+            colourPaletteLabel.Text = "Selected: Blue";
+            Mandelbrot();
+            Refresh(); // redraw picture and child components
         }
 
         private void colourPalettePurple_Click(object sender, EventArgs e)
         {
-            this.j = 190;
-            this.colourPaletteLabel.Text = "Selected: Purple";
-            this.Mandelbrot();
-            this.Refresh(); // redraw picture and child components
+            j = 190;
+            colourPaletteLabel.Text = "Selected: Purple";
+            Mandelbrot();
+            Refresh(); // redraw picture and child components
         }
 
         // colour palette buttons - change cursor to hand on hover
         private void colourPalette_MouseEnter(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Hand;
+            Cursor = Cursors.Hand;
         }
 
         // colour palette buttons - change cursor to hand on click
         private void colourPalette_MouseClick(object sender, MouseEventArgs e)
         {
-            this.Cursor = Cursors.Hand;
+            Cursor = Cursors.Hand;
         }
 
         // colour palette buttons - change cursor to default pointer on leave
         private void colourPalette_MouseLeave(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Default;
+            Cursor = Cursors.Default;
         }
 
-        private void colourPaletteLabel_Click(object sender, EventArgs e)
+        // colour cycle checkbox
+        private void checkBoxColourCycle_CheckedChanged(object sender, EventArgs e)
         {
+            if (checkBoxColourCycle.Checked) // cycle checkbox selected
+            {
+                timer.Tick += (timer_Tick);
+                timer.Interval = 100; // in miliseconds
+                timer.Start();
+                ticks = 0;
+            }
+            else
+            {
+                timer.Stop();
+                timer.Dispose();
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            ticks++; // increment timer
+            Mandelbrot();
+            Refresh(); // Redraw picture and child components
+            // colourPaletteLabel.Text = j.ToString(); // debugging
+
+            if (j == 240) // if j reaches 240 (black) then set variable to cycle backwards 
+            {
+                cycleForwards = false;
+            }
+
+            if (j == 0) // if j reaches 0 (red) then set variable to cycle forwards 
+            {
+                cycleForwards = true;
+            }
+
+            if (cycleForwards)
+            {
+                j++; // cycle colours from light to dark
+            }
+            else
+            {
+                j--; // cycle colours from dark to light
+            }
 
         }
 

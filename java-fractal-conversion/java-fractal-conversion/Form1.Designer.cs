@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.picture = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,9 +49,14 @@
             this.colourPaletteBlue = new System.Windows.Forms.Button();
             this.colourPalettePurple = new System.Windows.Forms.Button();
             this.colourPaletteLabel = new System.Windows.Forms.Label();
+            this.trackBarColourCycle = new System.Windows.Forms.TrackBar();
+            this.checkBoxColourCycle = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).BeginInit();
             this.SuspendLayout();
             // 
             // picture
@@ -76,7 +82,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(986, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(733, 29);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseEnter += new System.EventHandler(this.menuStrip1_MouseEnter);
@@ -226,7 +232,7 @@
             // 
             this.colourPaletteYellow.BackColor = System.Drawing.Color.Yellow;
             this.colourPaletteYellow.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteYellow.Location = new System.Drawing.Point(658, 284);
+            this.colourPaletteYellow.Location = new System.Drawing.Point(624, 284);
             this.colourPaletteYellow.Name = "colourPaletteYellow";
             this.colourPaletteYellow.Size = new System.Drawing.Size(28, 28);
             this.colourPaletteYellow.TabIndex = 11;
@@ -240,7 +246,7 @@
             // 
             this.colourPaletteGreen.BackColor = System.Drawing.Color.LawnGreen;
             this.colourPaletteGreen.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteGreen.Location = new System.Drawing.Point(624, 284);
+            this.colourPaletteGreen.Location = new System.Drawing.Point(658, 284);
             this.colourPaletteGreen.Name = "colourPaletteGreen";
             this.colourPaletteGreen.Size = new System.Drawing.Size(28, 28);
             this.colourPaletteGreen.TabIndex = 12;
@@ -289,7 +295,39 @@
             this.colourPaletteLabel.Size = new System.Drawing.Size(89, 19);
             this.colourPaletteLabel.TabIndex = 16;
             this.colourPaletteLabel.Text = "Selected: Red";
-            this.colourPaletteLabel.Click += new System.EventHandler(this.colourPaletteLabel_Click);
+            // 
+            // trackBarColourCycle
+            // 
+            this.trackBarColourCycle.BackColor = System.Drawing.Color.Black;
+            this.trackBarColourCycle.Location = new System.Drawing.Point(580, 369);
+            this.trackBarColourCycle.Name = "trackBarColourCycle";
+            this.trackBarColourCycle.Size = new System.Drawing.Size(106, 45);
+            this.trackBarColourCycle.TabIndex = 17;
+            // 
+            // checkBoxColourCycle
+            // 
+            this.checkBoxColourCycle.AutoSize = true;
+            this.checkBoxColourCycle.BackColor = System.Drawing.Color.Black;
+            this.checkBoxColourCycle.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.checkBoxColourCycle.Location = new System.Drawing.Point(556, 372);
+            this.checkBoxColourCycle.Name = "checkBoxColourCycle";
+            this.checkBoxColourCycle.Padding = new System.Windows.Forms.Padding(5);
+            this.checkBoxColourCycle.Size = new System.Drawing.Size(25, 24);
+            this.checkBoxColourCycle.TabIndex = 18;
+            this.checkBoxColourCycle.UseVisualStyleBackColor = false;
+            this.checkBoxColourCycle.CheckedChanged += new System.EventHandler(this.checkBoxColourCycle_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label1.Location = new System.Drawing.Point(557, 348);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(126, 21);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Colour Cycle       ";
             // 
             // Form1
             // 
@@ -297,7 +335,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(986, 607);
+            this.ClientSize = new System.Drawing.Size(733, 557);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.checkBoxColourCycle);
+            this.Controls.Add(this.trackBarColourCycle);
             this.Controls.Add(this.colourPaletteLabel);
             this.Controls.Add(this.colourPalettePurple);
             this.Controls.Add(this.colourPaletteBlue);
@@ -321,6 +362,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -348,6 +390,10 @@
         private System.Windows.Forms.Button colourPaletteBlue;
         private System.Windows.Forms.Button colourPalettePurple;
         private System.Windows.Forms.Label colourPaletteLabel;
+        private System.Windows.Forms.TrackBar trackBarColourCycle;
+        private System.Windows.Forms.CheckBox checkBoxColourCycle;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timer;
 
     }
 }
