@@ -337,6 +337,10 @@
             this.label1.TabIndex = 19;
             this.label1.Text = "Colour Cycle       ";
             // 
+            // timer
+            // 
+            this.timer.Interval = 600;
+            // 
             // colourCycleSpeedLabel
             // 
             this.colourCycleSpeedLabel.AutoSize = true;

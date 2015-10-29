@@ -507,7 +507,6 @@ namespace java_fractal_conversion
             if (checkBoxColourCycle.Checked) // cycle checkbox selected
             {
                 timer.Tick += (timer_Tick);
-                timer.Interval = 600; // in miliseconds
                 timer.Start();
                 ticks = 0;
             }
@@ -549,25 +548,22 @@ namespace java_fractal_conversion
         // colour cycle speed slider
         private void trackBarColourCycle_Scroll(object sender, EventArgs e)
         {
-            if (timer.Enabled)
+            switch (trackBarColourCycle.Value) // get value from slider and set timer time in milliseconds
             {
-                switch (trackBarColourCycle.Value) // get value from slider and set timer time in milliseconds
-                {
-                    case 1:
-                        timer.Interval = 300;
-                        colourCycleSpeedLabel.Text = "x2";
-                        break;
-                    case 2:
-                        timer.Interval = 100;
-                        colourCycleSpeedLabel.Text = "x3";
-                        break;
-                    default:
-                        timer.Interval = 600;
-                        colourCycleSpeedLabel.Text = "x1";
-                        break;
-                }
-
+                case 1:
+                    timer.Interval = 300;
+                    colourCycleSpeedLabel.Text = "x2";
+                    break;
+                case 2:
+                    timer.Interval = 100;
+                    colourCycleSpeedLabel.Text = "x3";
+                    break;
+                default:
+                    timer.Interval = 600;
+                    colourCycleSpeedLabel.Text = "x1";
+                    break;
             }
+
         }
 
         // colour cycle trackbar cursors
