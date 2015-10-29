@@ -53,6 +53,7 @@
             this.checkBoxColourCycle = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.colourCycleSpeedLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).BeginInit();
@@ -298,10 +299,15 @@
             // trackBarColourCycle
             // 
             this.trackBarColourCycle.BackColor = System.Drawing.Color.Black;
-            this.trackBarColourCycle.Location = new System.Drawing.Point(580, 369);
+            this.trackBarColourCycle.Location = new System.Drawing.Point(577, 369);
+            this.trackBarColourCycle.Maximum = 2;
             this.trackBarColourCycle.Name = "trackBarColourCycle";
             this.trackBarColourCycle.Size = new System.Drawing.Size(106, 45);
+            this.trackBarColourCycle.SmallChange = 100;
             this.trackBarColourCycle.TabIndex = 17;
+            this.trackBarColourCycle.Scroll += new System.EventHandler(this.trackBarColourCycle_Scroll);
+            this.trackBarColourCycle.MouseEnter += new System.EventHandler(this.colourCycle_MouseEnter);
+            this.trackBarColourCycle.MouseLeave += new System.EventHandler(this.colourCycle_MouseLeave);
             // 
             // checkBoxColourCycle
             // 
@@ -315,6 +321,9 @@
             this.checkBoxColourCycle.TabIndex = 18;
             this.checkBoxColourCycle.UseVisualStyleBackColor = false;
             this.checkBoxColourCycle.CheckedChanged += new System.EventHandler(this.checkBoxColourCycle_CheckedChanged);
+            this.checkBoxColourCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourCycle_MouseClick);
+            this.checkBoxColourCycle.MouseEnter += new System.EventHandler(this.colourCycle_MouseEnter);
+            this.checkBoxColourCycle.MouseLeave += new System.EventHandler(this.colourCycle_MouseLeave);
             // 
             // label1
             // 
@@ -328,6 +337,18 @@
             this.label1.TabIndex = 19;
             this.label1.Text = "Colour Cycle       ";
             // 
+            // colourCycleSpeedLabel
+            // 
+            this.colourCycleSpeedLabel.AutoSize = true;
+            this.colourCycleSpeedLabel.BackColor = System.Drawing.Color.Black;
+            this.colourCycleSpeedLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.colourCycleSpeedLabel.ForeColor = System.Drawing.Color.White;
+            this.colourCycleSpeedLabel.Location = new System.Drawing.Point(660, 351);
+            this.colourCycleSpeedLabel.Name = "colourCycleSpeedLabel";
+            this.colourCycleSpeedLabel.Size = new System.Drawing.Size(23, 19);
+            this.colourCycleSpeedLabel.TabIndex = 20;
+            this.colourCycleSpeedLabel.Text = "x1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,6 +356,7 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(733, 557);
+            this.Controls.Add(this.colourCycleSpeedLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBoxColourCycle);
             this.Controls.Add(this.trackBarColourCycle);
@@ -392,6 +414,7 @@
         private System.Windows.Forms.CheckBox checkBoxColourCycle;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Label colourCycleSpeedLabel;
 
     }
 }

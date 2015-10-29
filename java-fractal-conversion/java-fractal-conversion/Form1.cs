@@ -344,6 +344,8 @@ namespace java_fractal_conversion
             timer.Dispose(); // dispose of time
             checkBoxColourCycle.Checked = false; // uncheck colour cycle checkbox
             j = 0; // reset fractal colour to red
+            trackBarColourCycle.Value = 0; // reset colour cycle speed
+            colourCycleSpeedLabel.Text = "x1"; // reset colour cycle speed label
             colourPaletteLabel.Text = "Select a colour:"; // no colour selected
             Start(); // reset zoom, initial variables, call mandlebrot
             Refresh(); // Redraw picture and child components 
@@ -499,13 +501,13 @@ namespace java_fractal_conversion
         /* colour cycle checkbox - selecting the checkbox starts a timer. The timer_Tick 
         method is called every 100 milliseconds at default. At each call, the value of j is
         incremended. If j reaches 240 (dark colour) it is decremented to lighten
-        the fractal. At 0 (red) it is incremented again.*/    
+        the fractal. At 0 (red) it is incremented again.*/
         private void checkBoxColourCycle_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxColourCycle.Checked) // cycle checkbox selected
             {
                 timer.Tick += (timer_Tick);
-                timer.Interval = 100; // in miliseconds
+                timer.Interval = 600; // in miliseconds
                 timer.Start();
                 ticks = 0;
             }
@@ -542,6 +544,46 @@ namespace java_fractal_conversion
                 j--; // cycle colours from dark to light
             }
 
+        }
+
+        // colour cycle speed slider
+        private void trackBarColourCycle_Scroll(object sender, EventArgs e)
+        {
+            if (timer.Enabled)
+            {
+                switch (trackBarColourCycle.Value) // get value from slider and set timer time in milliseconds
+                {
+                    case 1:
+                        timer.Interval = 300;
+                        colourCycleSpeedLabel.Text = "x2";
+                        break;
+                    case 2:
+                        timer.Interval = 100;
+                        colourCycleSpeedLabel.Text = "x3";
+                        break;
+                    default:
+                        timer.Interval = 600;
+                        colourCycleSpeedLabel.Text = "x1";
+                        break;
+                }
+
+            }
+        }
+
+        // colour cycle trackbar cursors
+        private void colourCycle_MouseClick(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void colourCycle_MouseEnter(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void colourCycle_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
         }
 
     }
