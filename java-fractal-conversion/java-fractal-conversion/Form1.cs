@@ -258,7 +258,8 @@ namespace java_fractal_conversion
                         new XElement("xstart", xstart),
                         new XElement("ystart", ystart),
                         new XElement("xzoom", xzoom),
-                        new XElement("yzoom", yzoom)
+                        new XElement("yzoom", yzoom),
+                        new XElement("j", j)
                     ));
 
                     document.Save(saveFileDialog.FileName); // save document to the selected path
@@ -308,6 +309,7 @@ namespace java_fractal_conversion
                             ystart = Convert.ToDouble(xmlNode["ystart"].InnerText);
                             xzoom = Convert.ToDouble(xmlNode["xzoom"].InnerText);
                             yzoom = Convert.ToDouble(xmlNode["yzoom"].InnerText);
+                            j = Convert.ToInt32(xmlNode["j"].InnerText);
                         }
                         Mandelbrot();
                         Refresh();  // Redraw picture and child components // repaint(); // djm original Java
