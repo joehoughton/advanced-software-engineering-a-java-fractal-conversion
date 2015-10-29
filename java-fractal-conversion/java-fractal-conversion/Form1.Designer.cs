@@ -137,7 +137,7 @@
             this.imageTv.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imageTv.Location = new System.Drawing.Point(-58, 50);
             this.imageTv.Name = "imageTv";
-            this.imageTv.Size = new System.Drawing.Size(830, 534);
+            this.imageTv.Size = new System.Drawing.Size(840, 534);
             this.imageTv.TabIndex = 2;
             this.imageTv.TabStop = false;
             this.imageTv.MouseEnter += new System.EventHandler(this.imageTv_MouseEnter);
@@ -148,7 +148,7 @@
             this.buttonReset.Font = new System.Drawing.Font("Stencil", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonReset.Location = new System.Drawing.Point(556, 420);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(122, 36);
+            this.buttonReset.Size = new System.Drawing.Size(130, 36);
             this.buttonReset.TabIndex = 3;
             this.buttonReset.Text = "Restart";
             this.buttonReset.UseVisualStyleBackColor = false;
@@ -171,19 +171,20 @@
             // colourPaletteTitle
             // 
             this.colourPaletteTitle.AutoSize = true;
+            this.colourPaletteTitle.BackColor = System.Drawing.Color.Black;
             this.colourPaletteTitle.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.colourPaletteTitle.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.colourPaletteTitle.Location = new System.Drawing.Point(708, 60);
+            this.colourPaletteTitle.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.colourPaletteTitle.Location = new System.Drawing.Point(552, 241);
             this.colourPaletteTitle.Name = "colourPaletteTitle";
-            this.colourPaletteTitle.Size = new System.Drawing.Size(107, 21);
+            this.colourPaletteTitle.Size = new System.Drawing.Size(131, 21);
             this.colourPaletteTitle.TabIndex = 6;
-            this.colourPaletteTitle.Text = "Colour Palette";
+            this.colourPaletteTitle.Text = "Colour Palette      ";
             // 
             // colourPaletteRed
             // 
             this.colourPaletteRed.BackColor = System.Drawing.Color.Red;
             this.colourPaletteRed.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteRed.Location = new System.Drawing.Point(713, 103);
+            this.colourPaletteRed.Location = new System.Drawing.Point(556, 284);
             this.colourPaletteRed.Name = "colourPaletteRed";
             this.colourPaletteRed.Size = new System.Drawing.Size(28, 28);
             this.colourPaletteRed.TabIndex = 8;
@@ -197,7 +198,7 @@
             // 
             this.colourPaletteOrange.BackColor = System.Drawing.Color.DarkOrange;
             this.colourPaletteOrange.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteOrange.Location = new System.Drawing.Point(747, 103);
+            this.colourPaletteOrange.Location = new System.Drawing.Point(590, 284);
             this.colourPaletteOrange.Name = "colourPaletteOrange";
             this.colourPaletteOrange.Size = new System.Drawing.Size(28, 28);
             this.colourPaletteOrange.TabIndex = 9;
@@ -211,7 +212,7 @@
             // 
             this.colourPaletteTurquoise.BackColor = System.Drawing.Color.Turquoise;
             this.colourPaletteTurquoise.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteTurquoise.Location = new System.Drawing.Point(713, 136);
+            this.colourPaletteTurquoise.Location = new System.Drawing.Point(556, 317);
             this.colourPaletteTurquoise.Name = "colourPaletteTurquoise";
             this.colourPaletteTurquoise.Size = new System.Drawing.Size(28, 28);
             this.colourPaletteTurquoise.TabIndex = 10;
@@ -225,7 +226,7 @@
             // 
             this.colourPaletteYellow.BackColor = System.Drawing.Color.Yellow;
             this.colourPaletteYellow.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteYellow.Location = new System.Drawing.Point(817, 103);
+            this.colourPaletteYellow.Location = new System.Drawing.Point(658, 284);
             this.colourPaletteYellow.Name = "colourPaletteYellow";
             this.colourPaletteYellow.Size = new System.Drawing.Size(28, 28);
             this.colourPaletteYellow.TabIndex = 11;
@@ -239,7 +240,7 @@
             // 
             this.colourPaletteGreen.BackColor = System.Drawing.Color.LawnGreen;
             this.colourPaletteGreen.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteGreen.Location = new System.Drawing.Point(783, 103);
+            this.colourPaletteGreen.Location = new System.Drawing.Point(624, 284);
             this.colourPaletteGreen.Name = "colourPaletteGreen";
             this.colourPaletteGreen.Size = new System.Drawing.Size(28, 28);
             this.colourPaletteGreen.TabIndex = 12;
@@ -253,7 +254,7 @@
             // 
             this.colourPaletteBlue.BackColor = System.Drawing.Color.Blue;
             this.colourPaletteBlue.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteBlue.Location = new System.Drawing.Point(747, 137);
+            this.colourPaletteBlue.Location = new System.Drawing.Point(590, 317);
             this.colourPaletteBlue.Name = "colourPaletteBlue";
             this.colourPaletteBlue.Size = new System.Drawing.Size(28, 28);
             this.colourPaletteBlue.TabIndex = 13;
@@ -267,7 +268,7 @@
             // 
             this.colourPalettePurple.BackColor = System.Drawing.Color.Purple;
             this.colourPalettePurple.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPalettePurple.Location = new System.Drawing.Point(783, 137);
+            this.colourPalettePurple.Location = new System.Drawing.Point(624, 317);
             this.colourPalettePurple.Name = "colourPalettePurple";
             this.colourPalettePurple.Size = new System.Drawing.Size(28, 28);
             this.colourPalettePurple.TabIndex = 14;
@@ -280,13 +281,15 @@
             // colourPaletteLabel
             // 
             this.colourPaletteLabel.AutoSize = true;
+            this.colourPaletteLabel.BackColor = System.Drawing.Color.Black;
             this.colourPaletteLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteLabel.ForeColor = System.Drawing.Color.Black;
-            this.colourPaletteLabel.Location = new System.Drawing.Point(709, 80);
+            this.colourPaletteLabel.ForeColor = System.Drawing.Color.White;
+            this.colourPaletteLabel.Location = new System.Drawing.Point(552, 262);
             this.colourPaletteLabel.Name = "colourPaletteLabel";
-            this.colourPaletteLabel.Size = new System.Drawing.Size(134, 19);
+            this.colourPaletteLabel.Size = new System.Drawing.Size(89, 19);
             this.colourPaletteLabel.TabIndex = 16;
-            this.colourPaletteLabel.Text = "Selected Colour: Red";
+            this.colourPaletteLabel.Text = "Selected: Red";
+            this.colourPaletteLabel.Click += new System.EventHandler(this.colourPaletteLabel_Click);
             // 
             // Form1
             // 

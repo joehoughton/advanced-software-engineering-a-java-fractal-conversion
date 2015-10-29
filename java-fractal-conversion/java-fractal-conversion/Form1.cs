@@ -428,7 +428,7 @@ namespace java_fractal_conversion
         private void colourPaletteRed_Click(object sender, EventArgs e)
         {
             this.j = 0;
-            this.colourPaletteLabel.Text = "Selected Colour: Red";
+            this.colourPaletteLabel.Text = "Selected: Red";
             this.Mandelbrot();
             this.Refresh(); // Redraw picture and child components
         }
@@ -436,7 +436,7 @@ namespace java_fractal_conversion
         private void colourPaletteOrange_Click(object sender, EventArgs e)
         {
             this.j = 10;
-            this.colourPaletteLabel.Text = "Selected Colour: Orange";
+            this.colourPaletteLabel.Text = "Selected: Orange";
             this.Mandelbrot();
             this.Refresh(); // redraw picture and child components
         }
@@ -444,7 +444,7 @@ namespace java_fractal_conversion
         private void colourPaletteYellow_Click(object sender, EventArgs e)
         {
             this.j = 30;
-            this.colourPaletteLabel.Text = "Selected Colour: Yellow";
+            this.colourPaletteLabel.Text = "Selected: Yellow";
             this.Mandelbrot();
             this.Refresh(); // redraw picture and child components
         }
@@ -452,7 +452,7 @@ namespace java_fractal_conversion
         private void colourPaletteGreen_Click(object sender, EventArgs e)
         {
             this.j = 60;
-            this.colourPaletteLabel.Text = "Selected Colour: Green";
+            this.colourPaletteLabel.Text = "Selected: Green";
             this.Mandelbrot();
             this.Refresh(); // redraw picture and child components
         }
@@ -460,7 +460,7 @@ namespace java_fractal_conversion
         private void colourPaletteTurquoise_Click(object sender, EventArgs e)
         {
             this.j = 120;
-            this.colourPaletteLabel.Text = "Selected Colour: Turquoise";
+            this.colourPaletteLabel.Text = "Selected: Turquoise";
             this.Mandelbrot();
             this.Refresh(); // redraw picture and child components
         }
@@ -468,7 +468,7 @@ namespace java_fractal_conversion
         private void colourPaletteBlue_Click(object sender, EventArgs e)
         {
             this.j = 150;
-            this.colourPaletteLabel.Text = "Selected Colour: Blue";
+            this.colourPaletteLabel.Text = "Selected: Blue";
             this.Mandelbrot();
             this.Refresh(); // redraw picture and child components
         }
@@ -476,7 +476,7 @@ namespace java_fractal_conversion
         private void colourPalettePurple_Click(object sender, EventArgs e)
         {
             this.j = 190;
-            this.colourPaletteLabel.Text = "Selected Colour: Purple";
+            this.colourPaletteLabel.Text = "Selected: Purple";
             this.Mandelbrot();
             this.Refresh(); // redraw picture and child components
         }
@@ -497,6 +497,11 @@ namespace java_fractal_conversion
         private void colourPalette_MouseLeave(object sender, EventArgs e)
         {
             this.Cursor = Cursors.Default;
+        }
+
+        private void colourPaletteLabel_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
