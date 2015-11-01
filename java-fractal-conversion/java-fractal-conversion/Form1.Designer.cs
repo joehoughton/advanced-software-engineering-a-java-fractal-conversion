@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.picture = new System.Windows.Forms.PictureBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,19 +52,23 @@
             this.trackBarColourCycle = new System.Windows.Forms.TrackBar();
             this.checkBoxColourCycle = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.timerColourCycle = new System.Windows.Forms.Timer(this.components);
             this.colourCycleSpeedLabel = new System.Windows.Forms.Label();
+            this.checkBoxPaletteCycle = new System.Windows.Forms.CheckBox();
+            this.timerSmoothColourCycle = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
-            this.menuStrip1.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).BeginInit();
             this.SuspendLayout();
             // 
             // picture
             // 
-            this.picture.Location = new System.Drawing.Point(63, 129);
+            this.picture.Location = new System.Drawing.Point(126, 248);
+            this.picture.Margin = new System.Windows.Forms.Padding(6);
             this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(460, 338);
+            this.picture.Size = new System.Drawing.Size(920, 650);
             this.picture.TabIndex = 0;
             this.picture.TabStop = false;
             this.picture.Paint += new System.Windows.Forms.PaintEventHandler(this.picture_Paint);
@@ -74,18 +78,20 @@
             this.picture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picture_MouseMove);
             this.picture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picture_MouseUp);
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem1,
             this.fileToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(733, 29);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.MouseEnter += new System.EventHandler(this.menuStrip1_MouseEnter);
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(12, 4, 0, 4);
+            this.menuStrip.Size = new System.Drawing.Size(1466, 57);
+            this.menuStrip.TabIndex = 1;
+            this.menuStrip.Text = "menuStrip1";
+            this.menuStrip.MouseEnter += new System.EventHandler(this.menuStrip1_MouseEnter);
             // 
             // fileToolStripMenuItem1
             // 
@@ -93,13 +99,13 @@
             this.saveAsToolStripMenuItem});
             this.fileToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(46, 25);
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(81, 49);
             this.fileToolStripMenuItem1.Text = "File";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(143, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(255, 50);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -112,38 +118,39 @@
             this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(56, 25);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(103, 49);
             this.fileToolStripMenuItem.Text = "State";
             // 
             // saveStateToolStripMenuItem
             // 
             this.saveStateToolStripMenuItem.Name = "saveStateToolStripMenuItem";
-            this.saveStateToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.saveStateToolStripMenuItem.Size = new System.Drawing.Size(274, 50);
             this.saveStateToolStripMenuItem.Text = "Save State";
             this.saveStateToolStripMenuItem.Click += new System.EventHandler(this.saveStateToolStripMenuItem_Click);
             // 
             // loadStateToolStripMenuItem
             // 
             this.loadStateToolStripMenuItem.Name = "loadStateToolStripMenuItem";
-            this.loadStateToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.loadStateToolStripMenuItem.Size = new System.Drawing.Size(274, 50);
             this.loadStateToolStripMenuItem.Text = "Load State";
             this.loadStateToolStripMenuItem.Click += new System.EventHandler(this.loadStateToolStripMenuItem_Click);
             // 
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(274, 50);
             this.resetToolStripMenuItem.Text = "Restart";
-            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.reset_Click);
             // 
             // imageTv
             // 
             this.imageTv.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.imageTv.BackgroundImage = global::java_fractal_conversion.Properties.Resources.tv;
             this.imageTv.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.imageTv.Location = new System.Drawing.Point(-58, 50);
+            this.imageTv.Location = new System.Drawing.Point(-116, 96);
+            this.imageTv.Margin = new System.Windows.Forms.Padding(6);
             this.imageTv.Name = "imageTv";
-            this.imageTv.Size = new System.Drawing.Size(840, 534);
+            this.imageTv.Size = new System.Drawing.Size(1680, 1027);
             this.imageTv.TabIndex = 2;
             this.imageTv.TabStop = false;
             this.imageTv.MouseEnter += new System.EventHandler(this.imageTv_MouseEnter);
@@ -152,13 +159,14 @@
             // 
             this.buttonReset.BackColor = System.Drawing.Color.OrangeRed;
             this.buttonReset.Font = new System.Drawing.Font("Stencil", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonReset.Location = new System.Drawing.Point(556, 420);
+            this.buttonReset.Location = new System.Drawing.Point(1112, 808);
+            this.buttonReset.Margin = new System.Windows.Forms.Padding(6);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(130, 36);
+            this.buttonReset.Size = new System.Drawing.Size(260, 69);
             this.buttonReset.TabIndex = 3;
             this.buttonReset.Text = "Restart";
             this.buttonReset.UseVisualStyleBackColor = false;
-            this.buttonReset.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            this.buttonReset.Click += new System.EventHandler(this.reset_Click);
             this.buttonReset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonReset_MouseClick);
             this.buttonReset.MouseEnter += new System.EventHandler(this.buttonReset_MouseEnter);
             this.buttonReset.MouseLeave += new System.EventHandler(this.buttonReset_MouseLeave);
@@ -168,9 +176,10 @@
             this.message.AutoSize = true;
             this.message.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.message.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.message.Location = new System.Drawing.Point(12, 29);
+            this.message.Location = new System.Drawing.Point(24, 56);
+            this.message.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.message.Name = "message";
-            this.message.Size = new System.Drawing.Size(71, 21);
+            this.message.Size = new System.Drawing.Size(145, 45);
             this.message.TabIndex = 4;
             this.message.Text = "message";
             // 
@@ -180,9 +189,10 @@
             this.colourPaletteTitle.BackColor = System.Drawing.Color.Black;
             this.colourPaletteTitle.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.colourPaletteTitle.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.colourPaletteTitle.Location = new System.Drawing.Point(552, 241);
+            this.colourPaletteTitle.Location = new System.Drawing.Point(1104, 463);
+            this.colourPaletteTitle.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.colourPaletteTitle.Name = "colourPaletteTitle";
-            this.colourPaletteTitle.Size = new System.Drawing.Size(131, 21);
+            this.colourPaletteTitle.Size = new System.Drawing.Size(275, 45);
             this.colourPaletteTitle.TabIndex = 6;
             this.colourPaletteTitle.Text = "Colour Palette      ";
             // 
@@ -190,9 +200,10 @@
             // 
             this.colourPaletteRed.BackColor = System.Drawing.Color.Red;
             this.colourPaletteRed.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteRed.Location = new System.Drawing.Point(556, 284);
+            this.colourPaletteRed.Location = new System.Drawing.Point(1112, 546);
+            this.colourPaletteRed.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteRed.Name = "colourPaletteRed";
-            this.colourPaletteRed.Size = new System.Drawing.Size(28, 28);
+            this.colourPaletteRed.Size = new System.Drawing.Size(56, 54);
             this.colourPaletteRed.TabIndex = 8;
             this.colourPaletteRed.UseVisualStyleBackColor = false;
             this.colourPaletteRed.Click += new System.EventHandler(this.colourPaletteRed_Click);
@@ -204,9 +215,10 @@
             // 
             this.colourPaletteOrange.BackColor = System.Drawing.Color.DarkOrange;
             this.colourPaletteOrange.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteOrange.Location = new System.Drawing.Point(590, 284);
+            this.colourPaletteOrange.Location = new System.Drawing.Point(1180, 546);
+            this.colourPaletteOrange.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteOrange.Name = "colourPaletteOrange";
-            this.colourPaletteOrange.Size = new System.Drawing.Size(28, 28);
+            this.colourPaletteOrange.Size = new System.Drawing.Size(56, 54);
             this.colourPaletteOrange.TabIndex = 9;
             this.colourPaletteOrange.UseVisualStyleBackColor = false;
             this.colourPaletteOrange.Click += new System.EventHandler(this.colourPaletteOrange_Click);
@@ -218,9 +230,10 @@
             // 
             this.colourPaletteTurquoise.BackColor = System.Drawing.Color.Turquoise;
             this.colourPaletteTurquoise.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteTurquoise.Location = new System.Drawing.Point(556, 317);
+            this.colourPaletteTurquoise.Location = new System.Drawing.Point(1112, 610);
+            this.colourPaletteTurquoise.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteTurquoise.Name = "colourPaletteTurquoise";
-            this.colourPaletteTurquoise.Size = new System.Drawing.Size(28, 28);
+            this.colourPaletteTurquoise.Size = new System.Drawing.Size(56, 54);
             this.colourPaletteTurquoise.TabIndex = 10;
             this.colourPaletteTurquoise.UseVisualStyleBackColor = false;
             this.colourPaletteTurquoise.Click += new System.EventHandler(this.colourPaletteTurquoise_Click);
@@ -232,9 +245,10 @@
             // 
             this.colourPaletteYellow.BackColor = System.Drawing.Color.Yellow;
             this.colourPaletteYellow.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteYellow.Location = new System.Drawing.Point(624, 284);
+            this.colourPaletteYellow.Location = new System.Drawing.Point(1248, 546);
+            this.colourPaletteYellow.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteYellow.Name = "colourPaletteYellow";
-            this.colourPaletteYellow.Size = new System.Drawing.Size(28, 28);
+            this.colourPaletteYellow.Size = new System.Drawing.Size(56, 54);
             this.colourPaletteYellow.TabIndex = 11;
             this.colourPaletteYellow.UseVisualStyleBackColor = false;
             this.colourPaletteYellow.Click += new System.EventHandler(this.colourPaletteYellow_Click);
@@ -246,9 +260,10 @@
             // 
             this.colourPaletteGreen.BackColor = System.Drawing.Color.LawnGreen;
             this.colourPaletteGreen.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteGreen.Location = new System.Drawing.Point(658, 284);
+            this.colourPaletteGreen.Location = new System.Drawing.Point(1316, 546);
+            this.colourPaletteGreen.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteGreen.Name = "colourPaletteGreen";
-            this.colourPaletteGreen.Size = new System.Drawing.Size(28, 28);
+            this.colourPaletteGreen.Size = new System.Drawing.Size(56, 54);
             this.colourPaletteGreen.TabIndex = 12;
             this.colourPaletteGreen.UseVisualStyleBackColor = false;
             this.colourPaletteGreen.Click += new System.EventHandler(this.colourPaletteGreen_Click);
@@ -260,9 +275,10 @@
             // 
             this.colourPaletteBlue.BackColor = System.Drawing.Color.Blue;
             this.colourPaletteBlue.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteBlue.Location = new System.Drawing.Point(590, 317);
+            this.colourPaletteBlue.Location = new System.Drawing.Point(1180, 610);
+            this.colourPaletteBlue.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteBlue.Name = "colourPaletteBlue";
-            this.colourPaletteBlue.Size = new System.Drawing.Size(28, 28);
+            this.colourPaletteBlue.Size = new System.Drawing.Size(56, 54);
             this.colourPaletteBlue.TabIndex = 13;
             this.colourPaletteBlue.UseVisualStyleBackColor = false;
             this.colourPaletteBlue.Click += new System.EventHandler(this.colourPaletteBlue_Click);
@@ -274,9 +290,10 @@
             // 
             this.colourPalettePurple.BackColor = System.Drawing.Color.Purple;
             this.colourPalettePurple.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPalettePurple.Location = new System.Drawing.Point(624, 317);
+            this.colourPalettePurple.Location = new System.Drawing.Point(1248, 610);
+            this.colourPalettePurple.Margin = new System.Windows.Forms.Padding(6);
             this.colourPalettePurple.Name = "colourPalettePurple";
-            this.colourPalettePurple.Size = new System.Drawing.Size(28, 28);
+            this.colourPalettePurple.Size = new System.Drawing.Size(56, 54);
             this.colourPalettePurple.TabIndex = 14;
             this.colourPalettePurple.UseVisualStyleBackColor = false;
             this.colourPalettePurple.Click += new System.EventHandler(this.colourPalettePurple_Click);
@@ -290,19 +307,21 @@
             this.colourPaletteLabel.BackColor = System.Drawing.Color.Black;
             this.colourPaletteLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.colourPaletteLabel.ForeColor = System.Drawing.Color.White;
-            this.colourPaletteLabel.Location = new System.Drawing.Point(552, 262);
+            this.colourPaletteLabel.Location = new System.Drawing.Point(1104, 504);
+            this.colourPaletteLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.colourPaletteLabel.Name = "colourPaletteLabel";
-            this.colourPaletteLabel.Size = new System.Drawing.Size(100, 19);
+            this.colourPaletteLabel.Size = new System.Drawing.Size(196, 37);
             this.colourPaletteLabel.TabIndex = 16;
             this.colourPaletteLabel.Text = "Select a colour:";
             // 
             // trackBarColourCycle
             // 
             this.trackBarColourCycle.BackColor = System.Drawing.Color.Black;
-            this.trackBarColourCycle.Location = new System.Drawing.Point(577, 369);
+            this.trackBarColourCycle.Location = new System.Drawing.Point(1154, 710);
+            this.trackBarColourCycle.Margin = new System.Windows.Forms.Padding(6);
             this.trackBarColourCycle.Maximum = 2;
             this.trackBarColourCycle.Name = "trackBarColourCycle";
-            this.trackBarColourCycle.Size = new System.Drawing.Size(106, 45);
+            this.trackBarColourCycle.Size = new System.Drawing.Size(212, 90);
             this.trackBarColourCycle.SmallChange = 100;
             this.trackBarColourCycle.TabIndex = 17;
             this.trackBarColourCycle.Scroll += new System.EventHandler(this.trackBarColourCycle_Scroll);
@@ -314,10 +333,11 @@
             this.checkBoxColourCycle.AutoSize = true;
             this.checkBoxColourCycle.BackColor = System.Drawing.Color.Black;
             this.checkBoxColourCycle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBoxColourCycle.Location = new System.Drawing.Point(556, 372);
+            this.checkBoxColourCycle.Location = new System.Drawing.Point(1112, 715);
+            this.checkBoxColourCycle.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxColourCycle.Name = "checkBoxColourCycle";
-            this.checkBoxColourCycle.Padding = new System.Windows.Forms.Padding(5);
-            this.checkBoxColourCycle.Size = new System.Drawing.Size(25, 24);
+            this.checkBoxColourCycle.Padding = new System.Windows.Forms.Padding(10);
+            this.checkBoxColourCycle.Size = new System.Drawing.Size(48, 47);
             this.checkBoxColourCycle.TabIndex = 18;
             this.checkBoxColourCycle.UseVisualStyleBackColor = false;
             this.checkBoxColourCycle.CheckedChanged += new System.EventHandler(this.checkBoxColourCycle_CheckedChanged);
@@ -331,15 +351,17 @@
             this.label1.BackColor = System.Drawing.Color.Black;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(557, 348);
+            this.label1.Location = new System.Drawing.Point(1114, 669);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 21);
+            this.label1.Size = new System.Drawing.Size(262, 45);
             this.label1.TabIndex = 19;
             this.label1.Text = "Colour Cycle       ";
             // 
-            // timer
+            // timerColourCycle
             // 
-            this.timer.Interval = 600;
+            this.timerColourCycle.Interval = 600;
+            this.timerColourCycle.Tick += new System.EventHandler(this.timerColourCycle_Tick);
             // 
             // colourCycleSpeedLabel
             // 
@@ -347,19 +369,56 @@
             this.colourCycleSpeedLabel.BackColor = System.Drawing.Color.Black;
             this.colourCycleSpeedLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.colourCycleSpeedLabel.ForeColor = System.Drawing.Color.White;
-            this.colourCycleSpeedLabel.Location = new System.Drawing.Point(660, 351);
+            this.colourCycleSpeedLabel.Location = new System.Drawing.Point(1320, 675);
+            this.colourCycleSpeedLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.colourCycleSpeedLabel.Name = "colourCycleSpeedLabel";
-            this.colourCycleSpeedLabel.Size = new System.Drawing.Size(23, 19);
+            this.colourCycleSpeedLabel.Size = new System.Drawing.Size(44, 37);
             this.colourCycleSpeedLabel.TabIndex = 20;
             this.colourCycleSpeedLabel.Text = "x1";
             // 
+            // checkBoxPaletteCycle
+            // 
+            this.checkBoxPaletteCycle.AutoSize = true;
+            this.checkBoxPaletteCycle.BackColor = System.Drawing.Color.Black;
+            this.checkBoxPaletteCycle.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.checkBoxPaletteCycle.Location = new System.Drawing.Point(1102, 410);
+            this.checkBoxPaletteCycle.Margin = new System.Windows.Forms.Padding(6);
+            this.checkBoxPaletteCycle.Name = "checkBoxPaletteCycle";
+            this.checkBoxPaletteCycle.Padding = new System.Windows.Forms.Padding(10);
+            this.checkBoxPaletteCycle.Size = new System.Drawing.Size(48, 47);
+            this.checkBoxPaletteCycle.TabIndex = 21;
+            this.checkBoxPaletteCycle.UseVisualStyleBackColor = false;
+            this.checkBoxPaletteCycle.CheckedChanged += new System.EventHandler(this.checkBoxPaletteCycle_CheckedChanged);
+            this.checkBoxPaletteCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourCycle_MouseClick);
+            this.checkBoxPaletteCycle.MouseEnter += new System.EventHandler(this.colourCycle_MouseEnter);
+            this.checkBoxPaletteCycle.MouseLeave += new System.EventHandler(this.colourCycle_MouseLeave);
+            // 
+            // timerSmoothColourCycle
+            // 
+            this.timerSmoothColourCycle.Tick += new System.EventHandler(this.timerPaletteCycle_Tick);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Black;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(1104, 369);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(282, 45);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Palette Cycle         ";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(733, 557);
+            this.ClientSize = new System.Drawing.Size(1466, 1071);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.checkBoxPaletteCycle);
             this.Controls.Add(this.colourCycleSpeedLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBoxColourCycle);
@@ -376,15 +435,16 @@
             this.Controls.Add(this.message);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.picture);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.imageTv);
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Form1";
             this.MouseEnter += new System.EventHandler(this.Form1_MouseEnter);
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).EndInit();
             this.ResumeLayout(false);
@@ -395,7 +455,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox picture;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveStateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadStateToolStripMenuItem;
@@ -417,8 +477,11 @@
         private System.Windows.Forms.TrackBar trackBarColourCycle;
         private System.Windows.Forms.CheckBox checkBoxColourCycle;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Timer timerColourCycle;
         private System.Windows.Forms.Label colourCycleSpeedLabel;
+        private System.Windows.Forms.CheckBox checkBoxPaletteCycle;
+        private System.Windows.Forms.Timer timerSmoothColourCycle;
+        private System.Windows.Forms.Label label2;
 
     }
 }

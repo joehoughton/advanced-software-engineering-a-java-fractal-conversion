@@ -23,9 +23,8 @@ namespace java_fractal_conversion
         private static bool action, rectangle;
         private static float xy;
         private readonly Graphics g1;
-        public Bitmap Bitmap;
+        private readonly Bitmap bitmap;
         private Pen pen;
-        private int ticks; // timer in milliseconds
         private bool cycleForwards = true;
         // private static bool finished;  // djm not needed - can reset state without in resetToolStripMenuItem_Click()
         // private Cursor c1, c2; // djm not needed // now changed in picture_MouseEnter and picture_MouseLeave 
@@ -44,8 +43,8 @@ namespace java_fractal_conversion
             y1 = picture.Height;  // y1 = getSize().height; // djm original java
             xy = (float)x1 / (float)y1;
 
-            Bitmap = new Bitmap(x1, y1); // picture = createImage(x1, y1); // djm original java
-            g1 = Graphics.FromImage(Bitmap); // g1 = picture.getGraphics(); // djm original java
+            this.bitmap = new Bitmap(x1, y1); // picture = createImage(x1, y1); // djm original java
+            g1 = Graphics.FromImage(this.bitmap); // g1 = picture.getGraphics(); // djm original java
 
             // finished = true; // djm not needed - can reset state without in resetToolStripMenuItem_Click()
             Start();
@@ -123,7 +122,6 @@ namespace java_fractal_conversion
             return (float)jReference / (float)MAX; // djm original return (float)j / (float)MAX;
         }
 
-
         public void Paint(Graphics g)
         {
             Update(g);
@@ -131,7 +129,7 @@ namespace java_fractal_conversion
 
         public void Update(Graphics g)
         {
-            g.DrawImage(Bitmap, 0, 0);
+            g.DrawImage(bitmap, 0, 0);
             if (rectangle)
             {
                 pen = new Pen(Color.White); // use a new pen to prevent memory leak // pen.Color = Color.White; throws Parameter is not valid exception
@@ -250,7 +248,7 @@ namespace java_fractal_conversion
                 try
                 {
                     var converter = TypeDescriptor.GetConverter(typeof(Bitmap));
-                    var image = Convert.ToBase64String((byte[])converter.ConvertTo(Bitmap, typeof(byte[]))); // convert bitmap to byte array and convert array to string
+                    var image = Convert.ToBase64String((byte[])converter.ConvertTo(this.bitmap, typeof(byte[]))); // convert bitmap to byte array and convert array to string
 
                     var document = new XDocument( // define xml tree
                         new XElement("state", // parent node - the identifier 
@@ -327,7 +325,7 @@ namespace java_fractal_conversion
             }
         }
 
-        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        private void reset_Click(object sender, EventArgs e)
         {
             // djm not needed
             /*if (finished)
@@ -340,9 +338,10 @@ namespace java_fractal_conversion
                 c2 = null;
                 System.gc(); // garbage collection
             }*/
-            timer.Stop(); // stop timer
-            timer.Dispose(); // dispose of time
+            timerColourCycle.Stop(); // stop timer
+            timerColourCycle.Dispose(); // dispose of time
             checkBoxColourCycle.Checked = false; // uncheck colour cycle checkbox
+            checkBoxPaletteCycle.Checked = false; // uncheck palette cycle checkbox
             j = 0; // reset fractal colour to red
             trackBarColourCycle.Value = 0; // reset colour cycle speed
             colourCycleSpeedLabel.Text = "x1"; // reset colour cycle speed label
@@ -400,7 +399,7 @@ namespace java_fractal_conversion
 
                 try
                 {
-                    Bitmap.Save(saveFileDialog.FileName, format); // save image using users file name and selected format
+                    this.bitmap.Save(saveFileDialog.FileName, format); // save image using users file name and selected format
                     message.Text = (String.Format("Successfully saved fractal at {0} in {1} format.", saveFileDialog.FileName, selectedFileExtension));
                 }
                 catch (Exception ex)
@@ -498,31 +497,28 @@ namespace java_fractal_conversion
             Cursor = Cursors.Default;
         }
 
-        /* colour cycle checkbox - selecting the checkbox starts a timer. The timer_Tick 
-        method is called every 100 milliseconds at default. At each call, the value of j is
-        incremended. If j reaches 240 (dark colour) it is decremented to lighten
-        the fractal. At 0 (red) it is incremented again.*/
+        /* colour cycle checkbox - selecting the checkbox starts the timerColourCycle_Tick timer.
+           The method is called every 100 milliseconds at default. At each call, the value of j is
+           incremended. If j reaches 240 (dark colour) it is decremented to lighten
+           the fractal. At 0 (red) it is incremented again. Sliding the slider calls the 
+           trackBarColourCycle_Scroll which changes the timer speed in milliseconds. */
         private void checkBoxColourCycle_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxColourCycle.Checked) // cycle checkbox selected
             {
-                timer.Tick += (timer_Tick);
-                timer.Start();
-                ticks = 0;
+                timerColourCycle.Start();
             }
             else
             {
-                timer.Stop();
-                timer.Dispose();
+                timerColourCycle.Stop();
+                timerColourCycle.Dispose();
             }
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void timerColourCycle_Tick(object sender, EventArgs e)
         {
-            ticks++; // increment timer
             Mandelbrot();
             Refresh(); // Redraw picture and child components
-            // colourPaletteLabel.Text = j.ToString(); // debugging
 
             if (j == 240) // if j reaches 240 (black) then set variable to cycle backwards 
             {
@@ -551,22 +547,22 @@ namespace java_fractal_conversion
             switch (trackBarColourCycle.Value) // get value from slider and set timer time in milliseconds
             {
                 case 1:
-                    timer.Interval = 300;
+                    timerColourCycle.Interval = 300;
                     colourCycleSpeedLabel.Text = "x2";
                     break;
                 case 2:
-                    timer.Interval = 100;
+                    timerColourCycle.Interval = 100;
                     colourCycleSpeedLabel.Text = "x3";
                     break;
                 default:
-                    timer.Interval = 600;
+                    timerColourCycle.Interval = 600;
                     colourCycleSpeedLabel.Text = "x1";
                     break;
             }
 
         }
 
-        // colour cycle trackbar cursors
+        // cursors for colour cycle trackbar, buttons, palette cycle button
         private void colourCycle_MouseClick(object sender, MouseEventArgs e)
         {
             Cursor = Cursors.Hand;
@@ -580,6 +576,52 @@ namespace java_fractal_conversion
         private void colourCycle_MouseLeave(object sender, EventArgs e)
         {
             Cursor = Cursors.Default;
+        }
+
+        /* palette cycle checkbox - if checked, the timerPaletteCycle_Tick is called every 100 milliseconds.
+           At each call, the current bitmap is saved in memory as a gif image, to access the original bitmaps Pallete Entries (256 colours, 
+           not accessible in jpg).
+           Each palette entry (colour) is set to the next entry in the array. The colour palette is added to a new bitmap which is drawn. */
+        private void checkBoxPaletteCycle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxPaletteCycle.Checked) // palette cycle checkbox selected
+            {
+                timerSmoothColourCycle.Start(); // start timer - called every 100 milliseconds
+            }
+            else
+            {
+                timerSmoothColourCycle.Stop();
+                timerSmoothColourCycle.Dispose();
+            }
+        }
+
+        private void timerPaletteCycle_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                var memoryStream = new MemoryStream();
+                using (memoryStream) // using statement disposes memoryStream after use
+                {
+                    bitmap.Save(memoryStream, ImageFormat.Gif); // Save bitmap to stream as gif as gifs have palette entries (unlike jpegs)
+                    var bitmap2 = new Bitmap(memoryStream); // copy original bitmap to new bitmap
+                    var palette = bitmap2.Palette;
+
+                    for (int i = 0; i < palette.Entries.Length - 5; i++) // exclude last four white colours
+                    {
+                        var colour = palette.Entries[i];
+                        palette.Entries[i] = palette.Entries[i + 1]; // exclude first black colour at palette.Entries[0]
+                        palette.Entries[i + 1] = colour;
+                    }
+
+                    bitmap2.Palette = palette; // add palette to new bitmap
+                    g1.DrawImage(bitmap2, 0, 0); // draw new bitmap
+                    Refresh();  // redraw picture and child components
+                }
+            }
+            catch (Exception ex)
+            {
+                message.Text = (String.Format("Failed to cycle through palette colours. {0}", ex.Message)); // failed to cycle, display error message
+            }
         }
 
     }
