@@ -76,7 +76,7 @@ namespace java_fractal_conversion
             float h, b, alt = 0.0f;
 
             action = false;
-            Cursor = Cursors.WaitCursor; // setCursor(c1); // djm original java
+            // Cursor = Cursors.WaitCursor; //jh not needed // setCursor(c1); // djm original java
             Text = "C3375905";
             message.Text = "Mandelbrot-Set will be produced - please wait...";  // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
 
@@ -101,7 +101,7 @@ namespace java_fractal_conversion
                     g1.DrawLine(pen, x, y, x + 1, y);
                 }
 
-            Cursor = Cursors.Cross; // setCursor(c1); // djm original java
+            // Cursor = Cursors.Cross; //jh not needed // setCursor(c1); // djm original java
             message.Text = "Mandelbrot-Set ready - please select zoom area with pressed mouse."; // showStatus("Mandelbrot-Set ready - please select zoom area with pressed mouse."); // djm original java
             action = true;
         }
@@ -150,7 +150,7 @@ namespace java_fractal_conversion
                     }
                 }
 
-                pen.Dispose();  // release all pen resources
+                pen.Dispose(); // release all pen resources
             }
         }
 
@@ -168,7 +168,6 @@ namespace java_fractal_conversion
                 xs = e.X; // xs = e.getX(); // djm original Java
                 ys = e.Y; // ys = e.getY(); // djm original Java
             }
-
         }
 
         private void picture_MouseUp(object sender, MouseEventArgs e) // public void mouseReleased(MouseEvent e) // djm original java
@@ -224,6 +223,7 @@ namespace java_fractal_conversion
 
         }
 
+        // cursors for picture box
         private void picture_MouseEnter(object sender, EventArgs e)
         {
             Cursor = Cursors.Cross;
@@ -234,6 +234,29 @@ namespace java_fractal_conversion
             Cursor = Cursors.Default;
         }
 
+        // cursors for all buttons, sliders, checkboxes, menu items
+        private void cursor_MouseEnter(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand; // set cursor to hand on reset button hover
+        }
+
+        private void cursor_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default; // set cursor to default arrow on leave of reset button
+        }
+
+        private void cursor_MouseClick(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.Hand; // set cursor to hand on click
+        }
+
+        // close form - file menu item
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        // save state to xml - file menu item
         private void saveStateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
@@ -261,9 +284,7 @@ namespace java_fractal_conversion
                     ));
 
                     document.Save(saveFileDialog.FileName); // save document to the selected path
-
                     string selectedFileExtension = Path.GetExtension(saveFileDialog.FileName); // get file extension (in this case xml)
-
                     message.Text = (String.Format("Successfully saved fractal state at {0} in {01} format.", saveFileDialog.FileName, selectedFileExtension));
                 }
                 catch (Exception ex)
@@ -275,6 +296,7 @@ namespace java_fractal_conversion
 
         }
 
+        // load state from xml - file menu item
         private void loadStateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog
@@ -325,6 +347,7 @@ namespace java_fractal_conversion
             }
         }
 
+        // reset form to default
         private void reset_Click(object sender, EventArgs e)
         {
             // djm not needed
@@ -350,26 +373,7 @@ namespace java_fractal_conversion
             Refresh(); // Redraw picture and child components 
         }
 
-        private void menuStrip1_MouseEnter(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Default;
-        }
-
-        private void buttonReset_MouseEnter(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Hand; // set cursor to hand on reset button hover
-        }
-
-        private void buttonReset_MouseLeave(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Default; // set cursor to default arrow on leave of reset button
-        }
-
-        private void buttonReset_MouseClick(object sender, MouseEventArgs e)
-        {
-            Cursor = Cursors.Hand; // set cursor to hand on click
-        }
-
+        // save bitmap to image - file menu item
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
@@ -410,18 +414,6 @@ namespace java_fractal_conversion
 
         }
 
-        // default form cursor 
-        private void Form1_MouseEnter(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Default;
-        }
-
-        // tv image cursor 
-        private void imageTv_MouseEnter(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Default;
-        }
-
         // colour palette selection
         private void colourPaletteRed_Click(object sender, EventArgs e)
         {
@@ -436,7 +428,7 @@ namespace java_fractal_conversion
             j = 10;
             colourPaletteLabel.Text = "Selected: Orange";
             Mandelbrot();
-            Refresh(); // redraw picture and child components
+            Refresh(); 
         }
 
         private void colourPaletteYellow_Click(object sender, EventArgs e)
@@ -444,7 +436,7 @@ namespace java_fractal_conversion
             j = 30;
             colourPaletteLabel.Text = "Selected: Yellow";
             Mandelbrot();
-            Refresh(); // redraw picture and child components
+            Refresh(); 
         }
 
         private void colourPaletteGreen_Click(object sender, EventArgs e)
@@ -452,7 +444,7 @@ namespace java_fractal_conversion
             j = 60;
             colourPaletteLabel.Text = "Selected: Green";
             Mandelbrot();
-            Refresh(); // redraw picture and child components
+            Refresh(); 
         }
 
         private void colourPaletteTurquoise_Click(object sender, EventArgs e)
@@ -460,7 +452,7 @@ namespace java_fractal_conversion
             j = 120;
             colourPaletteLabel.Text = "Selected: Turquoise";
             Mandelbrot();
-            Refresh(); // redraw picture and child components
+            Refresh(); 
         }
 
         private void colourPaletteBlue_Click(object sender, EventArgs e)
@@ -468,7 +460,7 @@ namespace java_fractal_conversion
             j = 150;
             colourPaletteLabel.Text = "Selected: Blue";
             Mandelbrot();
-            Refresh(); // redraw picture and child components
+            Refresh(); 
         }
 
         private void colourPalettePurple_Click(object sender, EventArgs e)
@@ -476,25 +468,7 @@ namespace java_fractal_conversion
             j = 190;
             colourPaletteLabel.Text = "Selected: Purple";
             Mandelbrot();
-            Refresh(); // redraw picture and child components
-        }
-
-        // colour palette buttons - change cursor to hand on hover
-        private void colourPalette_MouseEnter(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Hand;
-        }
-
-        // colour palette buttons - change cursor to hand on click
-        private void colourPalette_MouseClick(object sender, MouseEventArgs e)
-        {
-            Cursor = Cursors.Hand;
-        }
-
-        // colour palette buttons - change cursor to default pointer on leave
-        private void colourPalette_MouseLeave(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Default;
+            Refresh(); 
         }
 
         /* colour cycle checkbox - selecting the checkbox starts the timerColourCycle_Tick timer.
@@ -508,7 +482,7 @@ namespace java_fractal_conversion
             {
                 timerColourCycle.Start();
             }
-            else
+            else // cycle checkbox not selected
             {
                 timerColourCycle.Stop();
                 timerColourCycle.Dispose();
@@ -562,22 +536,6 @@ namespace java_fractal_conversion
 
         }
 
-        // cursors for colour cycle trackbar, buttons, palette cycle button
-        private void colourCycle_MouseClick(object sender, MouseEventArgs e)
-        {
-            Cursor = Cursors.Hand;
-        }
-
-        private void colourCycle_MouseEnter(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Hand;
-        }
-
-        private void colourCycle_MouseLeave(object sender, EventArgs e)
-        {
-            Cursor = Cursors.Default;
-        }
-
         /* palette cycle checkbox - if checked, the timerPaletteCycle_Tick is called every 100 milliseconds.
            At each call, the current bitmap is saved in memory as a gif image, to access the original bitmaps Pallete Entries (256 colours, 
            not accessible in jpg).
@@ -588,7 +546,7 @@ namespace java_fractal_conversion
             {
                 timerSmoothColourCycle.Start(); // start timer - called every 100 milliseconds
             }
-            else
+            else // palette cycle checkbox not selected
             {
                 timerSmoothColourCycle.Stop();
                 timerSmoothColourCycle.Dispose();

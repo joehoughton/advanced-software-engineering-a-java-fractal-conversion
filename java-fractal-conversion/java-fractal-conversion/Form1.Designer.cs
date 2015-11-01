@@ -57,6 +57,7 @@
             this.checkBoxPaletteCycle = new System.Windows.Forms.CheckBox();
             this.timerSmoothColourCycle = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).BeginInit();
@@ -80,7 +81,7 @@
             // 
             // menuStrip
             // 
-            this.menuStrip.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.menuStrip.BackColor = System.Drawing.Color.YellowGreen;
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem1,
@@ -91,23 +92,28 @@
             this.menuStrip.Size = new System.Drawing.Size(1466, 57);
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip1";
-            this.menuStrip.MouseEnter += new System.EventHandler(this.menuStrip1_MouseEnter);
+            this.menuStrip.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
             // 
             // fileToolStripMenuItem1
             // 
             this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveAsToolStripMenuItem});
+            this.saveAsToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
             this.fileToolStripMenuItem1.Size = new System.Drawing.Size(81, 49);
             this.fileToolStripMenuItem1.Text = "File";
+            this.fileToolStripMenuItem1.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.fileToolStripMenuItem1.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(255, 50);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(269, 50);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            this.saveAsToolStripMenuItem.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.saveAsToolStripMenuItem.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // fileToolStripMenuItem
             // 
@@ -120,6 +126,8 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(103, 49);
             this.fileToolStripMenuItem.Text = "State";
+            this.fileToolStripMenuItem.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.fileToolStripMenuItem.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // saveStateToolStripMenuItem
             // 
@@ -127,6 +135,8 @@
             this.saveStateToolStripMenuItem.Size = new System.Drawing.Size(274, 50);
             this.saveStateToolStripMenuItem.Text = "Save State";
             this.saveStateToolStripMenuItem.Click += new System.EventHandler(this.saveStateToolStripMenuItem_Click);
+            this.saveStateToolStripMenuItem.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.saveStateToolStripMenuItem.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // loadStateToolStripMenuItem
             // 
@@ -134,6 +144,8 @@
             this.loadStateToolStripMenuItem.Size = new System.Drawing.Size(274, 50);
             this.loadStateToolStripMenuItem.Text = "Load State";
             this.loadStateToolStripMenuItem.Click += new System.EventHandler(this.loadStateToolStripMenuItem_Click);
+            this.loadStateToolStripMenuItem.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.loadStateToolStripMenuItem.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // resetToolStripMenuItem
             // 
@@ -141,6 +153,8 @@
             this.resetToolStripMenuItem.Size = new System.Drawing.Size(274, 50);
             this.resetToolStripMenuItem.Text = "Restart";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.reset_Click);
+            this.resetToolStripMenuItem.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.resetToolStripMenuItem.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // imageTv
             // 
@@ -153,7 +167,7 @@
             this.imageTv.Size = new System.Drawing.Size(1680, 1027);
             this.imageTv.TabIndex = 2;
             this.imageTv.TabStop = false;
-            this.imageTv.MouseEnter += new System.EventHandler(this.imageTv_MouseEnter);
+            this.imageTv.MouseEnter += new System.EventHandler(this.picture_MouseLeave);
             // 
             // buttonReset
             // 
@@ -167,15 +181,15 @@
             this.buttonReset.Text = "Restart";
             this.buttonReset.UseVisualStyleBackColor = false;
             this.buttonReset.Click += new System.EventHandler(this.reset_Click);
-            this.buttonReset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonReset_MouseClick);
-            this.buttonReset.MouseEnter += new System.EventHandler(this.buttonReset_MouseEnter);
-            this.buttonReset.MouseLeave += new System.EventHandler(this.buttonReset_MouseLeave);
+            this.buttonReset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.buttonReset.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.buttonReset.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // message
             // 
             this.message.AutoSize = true;
             this.message.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.message.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.message.ForeColor = System.Drawing.Color.DarkGreen;
             this.message.Location = new System.Drawing.Point(24, 56);
             this.message.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.message.Name = "message";
@@ -207,9 +221,9 @@
             this.colourPaletteRed.TabIndex = 8;
             this.colourPaletteRed.UseVisualStyleBackColor = false;
             this.colourPaletteRed.Click += new System.EventHandler(this.colourPaletteRed_Click);
-            this.colourPaletteRed.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourPalette_MouseClick);
-            this.colourPaletteRed.MouseEnter += new System.EventHandler(this.colourPalette_MouseEnter);
-            this.colourPaletteRed.MouseLeave += new System.EventHandler(this.colourPalette_MouseLeave);
+            this.colourPaletteRed.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.colourPaletteRed.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.colourPaletteRed.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // colourPaletteOrange
             // 
@@ -222,9 +236,9 @@
             this.colourPaletteOrange.TabIndex = 9;
             this.colourPaletteOrange.UseVisualStyleBackColor = false;
             this.colourPaletteOrange.Click += new System.EventHandler(this.colourPaletteOrange_Click);
-            this.colourPaletteOrange.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourPalette_MouseClick);
-            this.colourPaletteOrange.MouseEnter += new System.EventHandler(this.colourPalette_MouseEnter);
-            this.colourPaletteOrange.MouseLeave += new System.EventHandler(this.colourPalette_MouseLeave);
+            this.colourPaletteOrange.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.colourPaletteOrange.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.colourPaletteOrange.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // colourPaletteTurquoise
             // 
@@ -237,9 +251,9 @@
             this.colourPaletteTurquoise.TabIndex = 10;
             this.colourPaletteTurquoise.UseVisualStyleBackColor = false;
             this.colourPaletteTurquoise.Click += new System.EventHandler(this.colourPaletteTurquoise_Click);
-            this.colourPaletteTurquoise.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourPalette_MouseClick);
-            this.colourPaletteTurquoise.MouseEnter += new System.EventHandler(this.colourPalette_MouseEnter);
-            this.colourPaletteTurquoise.MouseLeave += new System.EventHandler(this.colourPalette_MouseLeave);
+            this.colourPaletteTurquoise.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.colourPaletteTurquoise.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.colourPaletteTurquoise.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // colourPaletteYellow
             // 
@@ -252,9 +266,9 @@
             this.colourPaletteYellow.TabIndex = 11;
             this.colourPaletteYellow.UseVisualStyleBackColor = false;
             this.colourPaletteYellow.Click += new System.EventHandler(this.colourPaletteYellow_Click);
-            this.colourPaletteYellow.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourPalette_MouseClick);
-            this.colourPaletteYellow.MouseEnter += new System.EventHandler(this.colourPalette_MouseEnter);
-            this.colourPaletteYellow.MouseLeave += new System.EventHandler(this.colourPalette_MouseLeave);
+            this.colourPaletteYellow.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.colourPaletteYellow.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.colourPaletteYellow.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // colourPaletteGreen
             // 
@@ -267,9 +281,9 @@
             this.colourPaletteGreen.TabIndex = 12;
             this.colourPaletteGreen.UseVisualStyleBackColor = false;
             this.colourPaletteGreen.Click += new System.EventHandler(this.colourPaletteGreen_Click);
-            this.colourPaletteGreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourPalette_MouseClick);
-            this.colourPaletteGreen.MouseEnter += new System.EventHandler(this.colourPalette_MouseEnter);
-            this.colourPaletteGreen.MouseLeave += new System.EventHandler(this.colourPalette_MouseLeave);
+            this.colourPaletteGreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.colourPaletteGreen.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.colourPaletteGreen.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // colourPaletteBlue
             // 
@@ -282,9 +296,9 @@
             this.colourPaletteBlue.TabIndex = 13;
             this.colourPaletteBlue.UseVisualStyleBackColor = false;
             this.colourPaletteBlue.Click += new System.EventHandler(this.colourPaletteBlue_Click);
-            this.colourPaletteBlue.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourPalette_MouseClick);
-            this.colourPaletteBlue.MouseEnter += new System.EventHandler(this.colourPalette_MouseEnter);
-            this.colourPaletteBlue.MouseLeave += new System.EventHandler(this.colourPalette_MouseLeave);
+            this.colourPaletteBlue.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.colourPaletteBlue.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.colourPaletteBlue.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // colourPalettePurple
             // 
@@ -297,9 +311,9 @@
             this.colourPalettePurple.TabIndex = 14;
             this.colourPalettePurple.UseVisualStyleBackColor = false;
             this.colourPalettePurple.Click += new System.EventHandler(this.colourPalettePurple_Click);
-            this.colourPalettePurple.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourPalette_MouseClick);
-            this.colourPalettePurple.MouseEnter += new System.EventHandler(this.colourPalette_MouseEnter);
-            this.colourPalettePurple.MouseLeave += new System.EventHandler(this.colourPalette_MouseLeave);
+            this.colourPalettePurple.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.colourPalettePurple.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.colourPalettePurple.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // colourPaletteLabel
             // 
@@ -325,8 +339,8 @@
             this.trackBarColourCycle.SmallChange = 100;
             this.trackBarColourCycle.TabIndex = 17;
             this.trackBarColourCycle.Scroll += new System.EventHandler(this.trackBarColourCycle_Scroll);
-            this.trackBarColourCycle.MouseEnter += new System.EventHandler(this.colourCycle_MouseEnter);
-            this.trackBarColourCycle.MouseLeave += new System.EventHandler(this.colourCycle_MouseLeave);
+            this.trackBarColourCycle.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.trackBarColourCycle.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // checkBoxColourCycle
             // 
@@ -341,9 +355,9 @@
             this.checkBoxColourCycle.TabIndex = 18;
             this.checkBoxColourCycle.UseVisualStyleBackColor = false;
             this.checkBoxColourCycle.CheckedChanged += new System.EventHandler(this.checkBoxColourCycle_CheckedChanged);
-            this.checkBoxColourCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourCycle_MouseClick);
-            this.checkBoxColourCycle.MouseEnter += new System.EventHandler(this.colourCycle_MouseEnter);
-            this.checkBoxColourCycle.MouseLeave += new System.EventHandler(this.colourCycle_MouseLeave);
+            this.checkBoxColourCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.checkBoxColourCycle.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.checkBoxColourCycle.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // label1
             // 
@@ -389,9 +403,9 @@
             this.checkBoxPaletteCycle.TabIndex = 21;
             this.checkBoxPaletteCycle.UseVisualStyleBackColor = false;
             this.checkBoxPaletteCycle.CheckedChanged += new System.EventHandler(this.checkBoxPaletteCycle_CheckedChanged);
-            this.checkBoxPaletteCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.colourCycle_MouseClick);
-            this.checkBoxPaletteCycle.MouseEnter += new System.EventHandler(this.colourCycle_MouseEnter);
-            this.checkBoxPaletteCycle.MouseLeave += new System.EventHandler(this.colourCycle_MouseLeave);
+            this.checkBoxPaletteCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cursor_MouseClick);
+            this.checkBoxPaletteCycle.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
+            this.checkBoxPaletteCycle.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
             // timerSmoothColourCycle
             // 
@@ -409,6 +423,13 @@
             this.label2.Size = new System.Drawing.Size(282, 45);
             this.label2.TabIndex = 22;
             this.label2.Text = "Palette Cycle         ";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(269, 50);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -441,7 +462,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.MouseEnter += new System.EventHandler(this.Form1_MouseEnter);
+            this.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -482,6 +503,7 @@
         private System.Windows.Forms.CheckBox checkBoxPaletteCycle;
         private System.Windows.Forms.Timer timerSmoothColourCycle;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
 
     }
 }
