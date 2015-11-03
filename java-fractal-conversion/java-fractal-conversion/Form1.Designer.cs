@@ -33,6 +33,7 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,11 +58,16 @@
             this.checkBoxPaletteCycle = new System.Windows.Forms.CheckBox();
             this.timerSmoothColourCycle = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxAnimation = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.messageAnimation = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.trackBarAnimation = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarAnimation)).BeginInit();
             this.SuspendLayout();
             // 
             // picture
@@ -89,10 +95,9 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(12, 4, 0, 4);
-            this.menuStrip.Size = new System.Drawing.Size(1466, 57);
+            this.menuStrip.Size = new System.Drawing.Size(1478, 57);
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip1";
-            this.menuStrip.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
             // 
             // fileToolStripMenuItem1
             // 
@@ -109,11 +114,18 @@
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(269, 50);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(255, 50);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             this.saveAsToolStripMenuItem.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
             this.saveAsToolStripMenuItem.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(255, 50);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // fileToolStripMenuItem
             // 
@@ -424,12 +436,67 @@
             this.label2.TabIndex = 22;
             this.label2.Text = "Palette Cycle         ";
             // 
-            // exitToolStripMenuItem
+            // checkBoxAnimation
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(269, 50);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.checkBoxAnimation.AutoSize = true;
+            this.checkBoxAnimation.BackColor = System.Drawing.Color.Black;
+            this.checkBoxAnimation.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.checkBoxAnimation.Location = new System.Drawing.Point(1102, 254);
+            this.checkBoxAnimation.Name = "checkBoxAnimation";
+            this.checkBoxAnimation.Padding = new System.Windows.Forms.Padding(10);
+            this.checkBoxAnimation.Size = new System.Drawing.Size(48, 47);
+            this.checkBoxAnimation.TabIndex = 23;
+            this.checkBoxAnimation.UseVisualStyleBackColor = false;
+            this.checkBoxAnimation.CheckedChanged += new System.EventHandler(this.checkBoxAnimation_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Black;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Location = new System.Drawing.Point(1103, 153);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(212, 45);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "Animation     ";
+            // 
+            // messageAnimation
+            // 
+            this.messageAnimation.AutoSize = true;
+            this.messageAnimation.BackColor = System.Drawing.Color.YellowGreen;
+            this.messageAnimation.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.messageAnimation.ForeColor = System.Drawing.Color.DarkGreen;
+            this.messageAnimation.Location = new System.Drawing.Point(243, 9);
+            this.messageAnimation.Name = "messageAnimation";
+            this.messageAnimation.Size = new System.Drawing.Size(245, 45);
+            this.messageAnimation.TabIndex = 25;
+            this.messageAnimation.Text = "                         ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Black;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(1104, 189);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(192, 74);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Select multiple\r\nstates:";
+            // 
+            // trackBarAnimation
+            // 
+            this.trackBarAnimation.BackColor = System.Drawing.Color.Black;
+            this.trackBarAnimation.Enabled = false;
+            this.trackBarAnimation.Location = new System.Drawing.Point(1143, 261);
+            this.trackBarAnimation.Maximum = 1;
+            this.trackBarAnimation.Name = "trackBarAnimation";
+            this.trackBarAnimation.Size = new System.Drawing.Size(210, 90);
+            this.trackBarAnimation.TabIndex = 27;
+            this.trackBarAnimation.Scroll += new System.EventHandler(this.trackBarAnimation_Scroll);
             // 
             // Form1
             // 
@@ -437,8 +504,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1466, 1071);
+            this.ClientSize = new System.Drawing.Size(1478, 1117);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.trackBarAnimation);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.messageAnimation);
+            this.Controls.Add(this.checkBoxAnimation);
             this.Controls.Add(this.checkBoxPaletteCycle);
             this.Controls.Add(this.colourCycleSpeedLabel);
             this.Controls.Add(this.label1);
@@ -468,6 +540,7 @@
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarAnimation)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -504,6 +577,11 @@
         private System.Windows.Forms.Timer timerSmoothColourCycle;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxAnimation;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label messageAnimation;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TrackBar trackBarAnimation;
 
     }
 }

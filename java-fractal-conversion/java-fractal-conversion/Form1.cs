@@ -6,9 +6,13 @@ using System.Xml.Linq;
 using System.IO;
 using System.Xml;
 using System.Drawing.Imaging;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace java_fractal_conversion
 {
+    using System.Linq;
+
     public partial class Form1 : Form
     {
         private const int MAX = 256;      // max iterations
@@ -26,6 +30,9 @@ namespace java_fractal_conversion
         private readonly Bitmap bitmap;
         private Pen pen;
         private bool cycleForwards = true;
+        public List<State> States;
+        private State currentState;
+        private State nextState;
         // private static bool finished;  // djm not needed - can reset state without in resetToolStripMenuItem_Click()
         // private Cursor c1, c2; // djm not needed // now changed in picture_MouseEnter and picture_MouseLeave 
         // private Image picture; // djm not needed 
@@ -206,7 +213,7 @@ namespace java_fractal_conversion
                 yzoom = (yende - ystart) / (double)y1;
                 Mandelbrot();
                 rectangle = false;
-                Refresh();  // Redraw picture and child components // repaint(); // djm original Java
+                Refresh();  // redraw picture and child components // repaint(); // djm original Java
             }
         }
 
@@ -218,9 +225,8 @@ namespace java_fractal_conversion
                 xe = e.X; // xe = e.getX(); // djm original Java
                 ye = e.Y; // ye = e.getY(); // djm original Java
                 rectangle = true; // set to true so selected area drawn in Update method
-                Refresh();  // Redraw picture and child components
+                Refresh();  // redraw picture and child components
             }
-
         }
 
         // cursors for picture box
@@ -285,15 +291,13 @@ namespace java_fractal_conversion
 
                     document.Save(saveFileDialog.FileName); // save document to the selected path
                     string selectedFileExtension = Path.GetExtension(saveFileDialog.FileName); // get file extension (in this case xml)
-                    message.Text = (String.Format("Successfully saved fractal state at {0} in {01} format.", saveFileDialog.FileName, selectedFileExtension));
+                    message.Text = String.Format("Successfully saved fractal state at {0} in {01} format.", saveFileDialog.FileName, selectedFileExtension);
                 }
                 catch (Exception ex)
                 {
-                    message.Text = (String.Format("Failed to save fractal state. {0}", ex.Message)); // failed to convert to xml and save, display error message
+                    message.Text = String.Format("Failed to save fractal state. {0}", ex.Message); // failed to convert to xml and save, display error message
                 }
-
             }
-
         }
 
         // load state from xml - file menu item
@@ -301,8 +305,7 @@ namespace java_fractal_conversion
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = "XML files (*.xml)|*.xml", // only display xml files in directory
-                DefaultExt = "fractal"
+                Filter = "XML files (*.xml)|*.xml" // only display xml files in directory
             };
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -332,16 +335,16 @@ namespace java_fractal_conversion
                             j = Convert.ToInt32(xmlNode["j"].InnerText);
                         }
                         Mandelbrot();
-                        Refresh();  // Redraw picture and child components // repaint(); // djm original Java
+                        Refresh();  // redraw picture and child components // repaint(); // djm original Java
 
                         string selectedFileExtension = Path.GetExtension(openFileDialog.FileName); // get file extension (in this case xml)
-                        message.Text = (String.Format("Successfully loaded fractal state from {0} at {1}.", selectedFileExtension, openFileDialog.FileName));
+                        message.Text = String.Format("Successfully loaded fractal state from {0} at {1}.", selectedFileExtension, openFileDialog.FileName);
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    message.Text = (String.Format("Failed to load fractal state. {0}", ex.Message)); // failed to load, display error message
+                    message.Text = String.Format("Failed to load fractal state. {0}", ex.Message); // failed to load, display error message
                 }
 
             }
@@ -363,14 +366,16 @@ namespace java_fractal_conversion
             }*/
             timerColourCycle.Stop(); // stop timer
             timerColourCycle.Dispose(); // dispose of time
+            checkBoxAnimation.Checked = false; // uncheck animation checkbox
             checkBoxColourCycle.Checked = false; // uncheck colour cycle checkbox
             checkBoxPaletteCycle.Checked = false; // uncheck palette cycle checkbox
             j = 0; // reset fractal colour to red
             trackBarColourCycle.Value = 0; // reset colour cycle speed
             colourCycleSpeedLabel.Text = "x1"; // reset colour cycle speed label
             colourPaletteLabel.Text = "Select a colour:"; // no colour selected
+            messageAnimation.Text = null; // remove text
             Start(); // reset zoom, initial variables, call mandlebrot
-            Refresh(); // Redraw picture and child components 
+            Refresh(); // redraw picture and child components 
         }
 
         // save bitmap to image - file menu item
@@ -404,14 +409,13 @@ namespace java_fractal_conversion
                 try
                 {
                     this.bitmap.Save(saveFileDialog.FileName, format); // save image using users file name and selected format
-                    message.Text = (String.Format("Successfully saved fractal at {0} in {1} format.", saveFileDialog.FileName, selectedFileExtension));
+                    message.Text = String.Format("Successfully saved fractal at {0} in {1} format.", saveFileDialog.FileName, selectedFileExtension);
                 }
                 catch (Exception ex)
                 {
-                    message.Text = (String.Format("Failed to save image. {0}", ex.Message)); // failed to save image, display error message
+                    message.Text = String.Format("Failed to save image. {0}", ex.Message); // failed to save image, display error message
                 }
             }
-
         }
 
         // colour palette selection
@@ -420,7 +424,7 @@ namespace java_fractal_conversion
             j = 0;
             colourPaletteLabel.Text = "Selected: Red";
             Mandelbrot();
-            Refresh(); // Redraw picture and child components
+            Refresh(); // redraw picture and child components
         }
 
         private void colourPaletteOrange_Click(object sender, EventArgs e)
@@ -428,7 +432,7 @@ namespace java_fractal_conversion
             j = 10;
             colourPaletteLabel.Text = "Selected: Orange";
             Mandelbrot();
-            Refresh(); 
+            Refresh();
         }
 
         private void colourPaletteYellow_Click(object sender, EventArgs e)
@@ -436,7 +440,7 @@ namespace java_fractal_conversion
             j = 30;
             colourPaletteLabel.Text = "Selected: Yellow";
             Mandelbrot();
-            Refresh(); 
+            Refresh();
         }
 
         private void colourPaletteGreen_Click(object sender, EventArgs e)
@@ -444,7 +448,7 @@ namespace java_fractal_conversion
             j = 60;
             colourPaletteLabel.Text = "Selected: Green";
             Mandelbrot();
-            Refresh(); 
+            Refresh();
         }
 
         private void colourPaletteTurquoise_Click(object sender, EventArgs e)
@@ -452,7 +456,7 @@ namespace java_fractal_conversion
             j = 120;
             colourPaletteLabel.Text = "Selected: Turquoise";
             Mandelbrot();
-            Refresh(); 
+            Refresh();
         }
 
         private void colourPaletteBlue_Click(object sender, EventArgs e)
@@ -460,7 +464,7 @@ namespace java_fractal_conversion
             j = 150;
             colourPaletteLabel.Text = "Selected: Blue";
             Mandelbrot();
-            Refresh(); 
+            Refresh();
         }
 
         private void colourPalettePurple_Click(object sender, EventArgs e)
@@ -468,7 +472,7 @@ namespace java_fractal_conversion
             j = 190;
             colourPaletteLabel.Text = "Selected: Purple";
             Mandelbrot();
-            Refresh(); 
+            Refresh();
         }
 
         /* colour cycle checkbox - selecting the checkbox starts the timerColourCycle_Tick timer.
@@ -492,7 +496,7 @@ namespace java_fractal_conversion
         private void timerColourCycle_Tick(object sender, EventArgs e)
         {
             Mandelbrot();
-            Refresh(); // Redraw picture and child components
+            Refresh(); // redraw picture and child components
 
             if (j == 240) // if j reaches 240 (black) then set variable to cycle backwards 
             {
@@ -512,7 +516,6 @@ namespace java_fractal_conversion
             {
                 j--; // cycle colours from dark to light
             }
-
         }
 
         // colour cycle speed slider
@@ -533,7 +536,6 @@ namespace java_fractal_conversion
                     colourCycleSpeedLabel.Text = "x1";
                     break;
             }
-
         }
 
         /* palette cycle checkbox - if checked, the timerPaletteCycle_Tick is called every 100 milliseconds.
@@ -578,7 +580,182 @@ namespace java_fractal_conversion
             }
             catch (Exception ex)
             {
-                message.Text = (String.Format("Failed to cycle through palette colours. {0}", ex.Message)); // failed to cycle, display error message
+                message.Text = String.Format("Failed to cycle through palette colours. {0}", ex.Message); // failed to cycle, display error message
+            }
+        }
+
+        /* animation checkbox - if selected, a dialog will appear allowing the user to select multiple bitmap states (xml).
+           Each state file is loaded into a State model and added to the States list. The AnimateStates method displays each state,
+           and calculates the values needed to draw the bitmaps inbetween the current and next state. 
+         */
+        private void checkBoxAnimation_CheckedChanged(object sender, EventArgs e)
+        {
+            States = new List<State>(); // instantiate empty list of states
+
+            if (checkBoxAnimation.Checked) // animation checkbox selected
+            {
+                var openFileDialog = new OpenFileDialog
+                {
+                    Filter = "XML files (*.xml)|*.xml", // only display xml files in directory
+                    Multiselect = true // select multiple files
+                };
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    foreach (String file in openFileDialog.FileNames) // read each selected file
+                    {
+                        try
+                        {
+                            var streamReader = new StreamReader(file); // initialise stream reader to read selected xml file
+                            using (streamReader) // using statement disposes of system resources automatically
+                            {
+                                var document = new XmlDocument();
+                                document.Load(file);
+                                var xnList = document.SelectNodes("/state"); // select parent node
+
+                                foreach (XmlNode xmlNode in xnList) // loop through child nodes to access stored bitmap attributes
+                                {
+                                    States.Add(new State( // add new state to list of states
+                                          Convert.ToDouble(xmlNode["xstart"].InnerText),
+                                          Convert.ToDouble(xmlNode["ystart"].InnerText),
+                                          Convert.ToDouble(xmlNode["xzoom"].InnerText),
+                                          Convert.ToDouble(xmlNode["yzoom"].InnerText),
+                                          Convert.ToInt32(xmlNode["j"].InnerText),
+                                          file
+                                        ));
+                                }
+                            }
+                            trackBarAnimation.Maximum = States.Count; // set trackbar values to length of list
+                            trackBarAnimation.Enabled = true; // enable now that files are selected
+                        }
+                        catch (Exception ex)
+                        {
+                            message.Text = String.Format("Failed to load fractal state. {0}", ex.Message); // failed to load, display error message
+                        }
+                    }
+                }
+                AnimateStates(); // animate through loaded states and calculate inbetween states
+            }
+        }
+
+        public void AnimateStates()
+        {
+            for (int i = 0; i < States.Count; i++) // loop through all loaded states
+            {
+                currentState = States[i]; // get single state from list
+
+                xstart = currentState.Xstart;
+                ystart = currentState.Ystart;
+                xzoom = currentState.Xzoom;
+                yzoom = currentState.Yzoom;
+                j = currentState.J;
+
+                Mandelbrot(); // draw first state in list
+                Refresh();
+
+                if (States.ElementAtOrDefault(i + 1) != null) // if state exists in list after current state
+                {
+                    nextState = States[i + 1]; // store the next state in the list
+
+                    if (currentState.Xstart < nextState.Xstart && // current state vales lower than next state?
+                           currentState.Ystart < nextState.Ystart &&
+                           currentState.Xzoom > nextState.Xzoom &&
+                           currentState.Yzoom > nextState.Yzoom
+                        )
+                    {
+                        while (
+                          currentState.Xstart <= nextState.Xstart &&  // yes - increase values and animate in 
+                          currentState.Ystart <= nextState.Ystart &&  // and draw sequences between current and next states
+                          currentState.Xzoom >= nextState.Xzoom &&
+                          currentState.Yzoom >= nextState.Yzoom)
+                        {
+                            // calculate difference between states and divide by four
+                            // this value will be used to increment current state values until they exceed the next state values
+                            // added 0.0001 to ensure they exceed
+                            if (currentState.Xstart <= nextState.Xstart)
+                            {
+                                var difference = (nextState.Xstart - currentState.Xstart) / 4 + 0.00001;
+                                currentState.Xstart += difference;
+                            }
+
+                            if (currentState.Ystart <= nextState.Ystart)
+                            {
+                                var difference = (nextState.Ystart - currentState.Ystart) / 4 + 0.00001;
+                                currentState.Ystart += difference;
+                            }
+
+                            if (currentState.Xzoom >= nextState.Xzoom)
+                            {
+                                var difference = (currentState.Xzoom - nextState.Xzoom) / 4 + 0.000001;
+                                currentState.Xzoom -= difference;
+                            }
+
+                            if (currentState.Yzoom >= nextState.Yzoom)
+                            {
+                                var difference = (currentState.Yzoom - nextState.Yzoom) / 4 + 0.000001;
+                                currentState.Yzoom -= difference;
+                            }
+
+                            // each time the current state is changed, redraw using its values
+                            xstart = currentState.Xstart;
+                            ystart = currentState.Ystart;
+                            xzoom = currentState.Xzoom;
+                            yzoom = currentState.Yzoom;
+                            this.Mandelbrot();
+                            this.Refresh();
+                        }
+                    }
+                    else // current state vales higher than next state - decreate values and animate out
+                    {
+                        while (
+                          currentState.Xstart >= nextState.Xstart &&
+                          currentState.Ystart >= nextState.Ystart &&
+                          currentState.Xzoom <= nextState.Xzoom &&
+                          currentState.Yzoom <= nextState.Yzoom)
+                        {
+                            if (currentState.Xstart >= nextState.Xstart)
+                            {
+                                var difference = (currentState.Xstart - nextState.Xstart) / 4 + 0.00001;
+                                currentState.Xstart -= difference;
+                            }
+
+                            if (currentState.Ystart >= nextState.Ystart)
+                            {
+                                var difference = (currentState.Ystart - nextState.Ystart) / 4 + 0.00001;
+                                currentState.Ystart -= difference;
+                            }
+
+                            if (currentState.Xzoom <= nextState.Xzoom)
+                            {
+                                var difference = (nextState.Xzoom - currentState.Xzoom) / 4 + 0.000001;
+                                currentState.Xzoom += difference;
+                            }
+
+                            if (currentState.Yzoom <= nextState.Yzoom)
+                            {
+                                var difference = (nextState.Yzoom - currentState.Yzoom) / 4 + 0.000001;
+                                currentState.Yzoom += difference;
+                            }
+                            // each time the current state is changed, redraw using its values
+                            xstart = currentState.Xstart;
+                            ystart = currentState.Ystart;
+                            xzoom = currentState.Xzoom;
+                            yzoom = currentState.Yzoom;
+                            this.Mandelbrot();
+                            this.Refresh();
+                        }
+
+                    }
+                }
+            }
+        }
+
+        private void trackBarAnimation_Scroll(object sender, EventArgs e)
+        {
+            if (checkBoxAnimation.Checked)
+            {
+                // Todo: Add slider and repeat animation 
+
             }
         }
 
