@@ -7,7 +7,6 @@ using System.IO;
 using System.Xml;
 using System.Drawing.Imaging;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace java_fractal_conversion
 {
@@ -77,6 +76,16 @@ namespace java_fractal_conversion
                 xstart = xende - (yende - ystart) * (double)xy;
         }
 
+        // randomly generates a known system colour 
+        private Color RandomColour()
+        {
+            var randomGenerator = new Random();
+            var systemColours = (KnownColor[])Enum.GetValues(typeof(KnownColor)); // array of system colour names
+            var randomColorName = systemColours[randomGenerator.Next(systemColours.Length)]; // get random colour name
+            var randomColor = Color.FromKnownColor(randomColorName); // create color object from name
+            return randomColor;
+        }
+
         private void Mandelbrot() // calculate all points // djm original mandelbrot()
         {
             int x, y;
@@ -139,7 +148,8 @@ namespace java_fractal_conversion
             g.DrawImage(bitmap, 0, 0);
             if (rectangle)
             {
-                pen = new Pen(Color.White); // use a new pen to prevent memory leak // pen.Color = Color.White; throws Parameter is not valid exception
+                var randomColour = RandomColour();
+                pen = new Pen(randomColour); // use a new pen to prevent memory leak // pen.Color = Color.White; throws Parameter is not valid exception
                 if (xs < xe)
                 {
                     if (ys < ye) g.DrawRectangle(pen, xs, ys, (xe - xs), (ye - ys));
