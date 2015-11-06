@@ -556,12 +556,12 @@ namespace java_fractal_conversion
         {
             if (checkBoxPaletteCycle.Checked) // palette cycle checkbox selected
             {
-                timerSmoothColourCycle.Start(); // start timer - called every 100 milliseconds
+                timerPaletteColourCycle.Start(); // start timer - called every 100 milliseconds
             }
             else // palette cycle checkbox not selected
             {
-                timerSmoothColourCycle.Stop();
-                timerSmoothColourCycle.Dispose();
+                timerPaletteColourCycle.Stop();
+                timerPaletteColourCycle.Dispose();
             }
         }
 
@@ -635,8 +635,6 @@ namespace java_fractal_conversion
                                         ));
                                 }
                             }
-                            trackBarAnimation.Maximum = States.Count; // set trackbar values to length of list
-                            trackBarAnimation.Enabled = true; // enable now that files are selected
                         }
                         catch (Exception ex)
                         {
@@ -645,6 +643,7 @@ namespace java_fractal_conversion
                     }
                 }
                 AnimateStates(); // animate through loaded states and calculate inbetween states
+                checkBoxAnimation.Checked = false; // uncheck animation checkbox
             }
         }
 
@@ -757,15 +756,6 @@ namespace java_fractal_conversion
 
                     }
                 }
-            }
-        }
-
-        private void trackBarAnimation_Scroll(object sender, EventArgs e)
-        {
-            if (checkBoxAnimation.Checked)
-            {
-                // Todo: Add slider and repeat animation 
-
             }
         }
 

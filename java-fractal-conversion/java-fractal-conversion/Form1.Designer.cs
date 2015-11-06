@@ -56,18 +56,16 @@
             this.timerColourCycle = new System.Windows.Forms.Timer(this.components);
             this.colourCycleSpeedLabel = new System.Windows.Forms.Label();
             this.checkBoxPaletteCycle = new System.Windows.Forms.CheckBox();
-            this.timerSmoothColourCycle = new System.Windows.Forms.Timer(this.components);
+            this.timerPaletteColourCycle = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.checkBoxAnimation = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.messageAnimation = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.trackBarAnimation = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarAnimation)).BeginInit();
             this.SuspendLayout();
             // 
             // picture
@@ -185,7 +183,7 @@
             // 
             this.buttonReset.BackColor = System.Drawing.Color.OrangeRed;
             this.buttonReset.Font = new System.Drawing.Font("Stencil", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonReset.Location = new System.Drawing.Point(1112, 808);
+            this.buttonReset.Location = new System.Drawing.Point(1093, 858);
             this.buttonReset.Margin = new System.Windows.Forms.Padding(6);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(260, 69);
@@ -215,7 +213,7 @@
             this.colourPaletteTitle.BackColor = System.Drawing.Color.Black;
             this.colourPaletteTitle.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.colourPaletteTitle.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.colourPaletteTitle.Location = new System.Drawing.Point(1104, 463);
+            this.colourPaletteTitle.Location = new System.Drawing.Point(1104, 521);
             this.colourPaletteTitle.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.colourPaletteTitle.Name = "colourPaletteTitle";
             this.colourPaletteTitle.Size = new System.Drawing.Size(275, 45);
@@ -226,7 +224,7 @@
             // 
             this.colourPaletteRed.BackColor = System.Drawing.Color.Red;
             this.colourPaletteRed.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteRed.Location = new System.Drawing.Point(1112, 546);
+            this.colourPaletteRed.Location = new System.Drawing.Point(1112, 604);
             this.colourPaletteRed.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteRed.Name = "colourPaletteRed";
             this.colourPaletteRed.Size = new System.Drawing.Size(56, 54);
@@ -241,7 +239,7 @@
             // 
             this.colourPaletteOrange.BackColor = System.Drawing.Color.DarkOrange;
             this.colourPaletteOrange.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteOrange.Location = new System.Drawing.Point(1180, 546);
+            this.colourPaletteOrange.Location = new System.Drawing.Point(1180, 604);
             this.colourPaletteOrange.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteOrange.Name = "colourPaletteOrange";
             this.colourPaletteOrange.Size = new System.Drawing.Size(56, 54);
@@ -256,7 +254,7 @@
             // 
             this.colourPaletteTurquoise.BackColor = System.Drawing.Color.Turquoise;
             this.colourPaletteTurquoise.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteTurquoise.Location = new System.Drawing.Point(1112, 610);
+            this.colourPaletteTurquoise.Location = new System.Drawing.Point(1112, 668);
             this.colourPaletteTurquoise.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteTurquoise.Name = "colourPaletteTurquoise";
             this.colourPaletteTurquoise.Size = new System.Drawing.Size(56, 54);
@@ -271,7 +269,7 @@
             // 
             this.colourPaletteYellow.BackColor = System.Drawing.Color.Yellow;
             this.colourPaletteYellow.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteYellow.Location = new System.Drawing.Point(1248, 546);
+            this.colourPaletteYellow.Location = new System.Drawing.Point(1248, 604);
             this.colourPaletteYellow.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteYellow.Name = "colourPaletteYellow";
             this.colourPaletteYellow.Size = new System.Drawing.Size(56, 54);
@@ -286,7 +284,7 @@
             // 
             this.colourPaletteGreen.BackColor = System.Drawing.Color.LawnGreen;
             this.colourPaletteGreen.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteGreen.Location = new System.Drawing.Point(1316, 546);
+            this.colourPaletteGreen.Location = new System.Drawing.Point(1316, 604);
             this.colourPaletteGreen.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteGreen.Name = "colourPaletteGreen";
             this.colourPaletteGreen.Size = new System.Drawing.Size(56, 54);
@@ -301,7 +299,7 @@
             // 
             this.colourPaletteBlue.BackColor = System.Drawing.Color.Blue;
             this.colourPaletteBlue.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteBlue.Location = new System.Drawing.Point(1180, 610);
+            this.colourPaletteBlue.Location = new System.Drawing.Point(1180, 668);
             this.colourPaletteBlue.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteBlue.Name = "colourPaletteBlue";
             this.colourPaletteBlue.Size = new System.Drawing.Size(56, 54);
@@ -316,7 +314,7 @@
             // 
             this.colourPalettePurple.BackColor = System.Drawing.Color.Purple;
             this.colourPalettePurple.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPalettePurple.Location = new System.Drawing.Point(1248, 610);
+            this.colourPalettePurple.Location = new System.Drawing.Point(1248, 668);
             this.colourPalettePurple.Margin = new System.Windows.Forms.Padding(6);
             this.colourPalettePurple.Name = "colourPalettePurple";
             this.colourPalettePurple.Size = new System.Drawing.Size(56, 54);
@@ -333,7 +331,7 @@
             this.colourPaletteLabel.BackColor = System.Drawing.Color.Black;
             this.colourPaletteLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.colourPaletteLabel.ForeColor = System.Drawing.Color.White;
-            this.colourPaletteLabel.Location = new System.Drawing.Point(1104, 504);
+            this.colourPaletteLabel.Location = new System.Drawing.Point(1104, 562);
             this.colourPaletteLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.colourPaletteLabel.Name = "colourPaletteLabel";
             this.colourPaletteLabel.Size = new System.Drawing.Size(196, 37);
@@ -343,7 +341,7 @@
             // trackBarColourCycle
             // 
             this.trackBarColourCycle.BackColor = System.Drawing.Color.Black;
-            this.trackBarColourCycle.Location = new System.Drawing.Point(1154, 710);
+            this.trackBarColourCycle.Location = new System.Drawing.Point(1154, 775);
             this.trackBarColourCycle.Margin = new System.Windows.Forms.Padding(6);
             this.trackBarColourCycle.Maximum = 2;
             this.trackBarColourCycle.Name = "trackBarColourCycle";
@@ -359,7 +357,7 @@
             this.checkBoxColourCycle.AutoSize = true;
             this.checkBoxColourCycle.BackColor = System.Drawing.Color.Black;
             this.checkBoxColourCycle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBoxColourCycle.Location = new System.Drawing.Point(1112, 715);
+            this.checkBoxColourCycle.Location = new System.Drawing.Point(1112, 780);
             this.checkBoxColourCycle.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxColourCycle.Name = "checkBoxColourCycle";
             this.checkBoxColourCycle.Padding = new System.Windows.Forms.Padding(10);
@@ -377,7 +375,7 @@
             this.label1.BackColor = System.Drawing.Color.Black;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(1114, 669);
+            this.label1.Location = new System.Drawing.Point(1114, 734);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(262, 45);
@@ -395,7 +393,7 @@
             this.colourCycleSpeedLabel.BackColor = System.Drawing.Color.Black;
             this.colourCycleSpeedLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.colourCycleSpeedLabel.ForeColor = System.Drawing.Color.White;
-            this.colourCycleSpeedLabel.Location = new System.Drawing.Point(1320, 675);
+            this.colourCycleSpeedLabel.Location = new System.Drawing.Point(1320, 735);
             this.colourCycleSpeedLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.colourCycleSpeedLabel.Name = "colourCycleSpeedLabel";
             this.colourCycleSpeedLabel.Size = new System.Drawing.Size(44, 37);
@@ -407,7 +405,7 @@
             this.checkBoxPaletteCycle.AutoSize = true;
             this.checkBoxPaletteCycle.BackColor = System.Drawing.Color.Black;
             this.checkBoxPaletteCycle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBoxPaletteCycle.Location = new System.Drawing.Point(1102, 410);
+            this.checkBoxPaletteCycle.Location = new System.Drawing.Point(1102, 479);
             this.checkBoxPaletteCycle.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxPaletteCycle.Name = "checkBoxPaletteCycle";
             this.checkBoxPaletteCycle.Padding = new System.Windows.Forms.Padding(10);
@@ -419,9 +417,9 @@
             this.checkBoxPaletteCycle.MouseEnter += new System.EventHandler(this.cursor_MouseEnter);
             this.checkBoxPaletteCycle.MouseLeave += new System.EventHandler(this.cursor_MouseLeave);
             // 
-            // timerSmoothColourCycle
+            // timerPaletteColourCycle
             // 
-            this.timerSmoothColourCycle.Tick += new System.EventHandler(this.timerPaletteCycle_Tick);
+            this.timerPaletteColourCycle.Tick += new System.EventHandler(this.timerPaletteCycle_Tick);
             // 
             // label2
             // 
@@ -429,7 +427,7 @@
             this.label2.BackColor = System.Drawing.Color.Black;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(1104, 369);
+            this.label2.Location = new System.Drawing.Point(1104, 438);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(282, 45);
@@ -441,7 +439,7 @@
             this.checkBoxAnimation.AutoSize = true;
             this.checkBoxAnimation.BackColor = System.Drawing.Color.Black;
             this.checkBoxAnimation.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBoxAnimation.Location = new System.Drawing.Point(1102, 254);
+            this.checkBoxAnimation.Location = new System.Drawing.Point(1102, 394);
             this.checkBoxAnimation.Name = "checkBoxAnimation";
             this.checkBoxAnimation.Padding = new System.Windows.Forms.Padding(10);
             this.checkBoxAnimation.Size = new System.Drawing.Size(48, 47);
@@ -455,7 +453,7 @@
             this.label3.BackColor = System.Drawing.Color.Black;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(1103, 153);
+            this.label3.Location = new System.Drawing.Point(1103, 283);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(212, 45);
@@ -480,23 +478,12 @@
             this.label4.BackColor = System.Drawing.Color.Black;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(1104, 189);
+            this.label4.Location = new System.Drawing.Point(1104, 323);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(192, 74);
             this.label4.TabIndex = 26;
             this.label4.Text = "Select multiple\r\nstates:";
-            // 
-            // trackBarAnimation
-            // 
-            this.trackBarAnimation.BackColor = System.Drawing.Color.Black;
-            this.trackBarAnimation.Enabled = false;
-            this.trackBarAnimation.Location = new System.Drawing.Point(1143, 261);
-            this.trackBarAnimation.Maximum = 1;
-            this.trackBarAnimation.Name = "trackBarAnimation";
-            this.trackBarAnimation.Size = new System.Drawing.Size(210, 90);
-            this.trackBarAnimation.TabIndex = 27;
-            this.trackBarAnimation.Scroll += new System.EventHandler(this.trackBarAnimation_Scroll);
             // 
             // Form1
             // 
@@ -505,9 +492,9 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1478, 1117);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.trackBarAnimation);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.buttonReset);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.messageAnimation);
             this.Controls.Add(this.checkBoxAnimation);
@@ -526,7 +513,6 @@
             this.Controls.Add(this.colourPaletteRed);
             this.Controls.Add(this.colourPaletteTitle);
             this.Controls.Add(this.message);
-            this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.picture);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.imageTv);
@@ -540,7 +526,6 @@
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarAnimation)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -574,14 +559,13 @@
         private System.Windows.Forms.Timer timerColourCycle;
         private System.Windows.Forms.Label colourCycleSpeedLabel;
         private System.Windows.Forms.CheckBox checkBoxPaletteCycle;
-        private System.Windows.Forms.Timer timerSmoothColourCycle;
+        private System.Windows.Forms.Timer timerPaletteColourCycle;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxAnimation;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label messageAnimation;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TrackBar trackBarAnimation;
 
     }
 }
