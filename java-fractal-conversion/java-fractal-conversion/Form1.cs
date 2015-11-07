@@ -77,7 +77,7 @@ namespace java_fractal_conversion
                 xstart = xende - (yende - ystart) * (double)xy;
         }
 
-        // randomly generates a known system colour 
+        // randomly generates a known system colour - used for rectangle
         private Color RandomColour()
         {
             var randomGenerator = new Random();
@@ -95,7 +95,7 @@ namespace java_fractal_conversion
             action = false;
             // Cursor = Cursors.WaitCursor; //jh not needed // setCursor(c1); // djm original java
             Text = "C3375905";
-            message.Text = "Mandelbrot-Set will be produced - please wait...";  // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
+            message.Text = "Mandelbrot-Set will be produced - please wait..."; // showStatus("Mandelbrot-Set will be produced - please wait..."); // djm original java
 
             for (x = 0; x < x1; x += 2) // x less than width - draw lines from left to right
                 for (y = 0; y < y1; y++) // draw 1 pixel at a time
@@ -273,6 +273,10 @@ namespace java_fractal_conversion
             this.Close();
         }
 
+        // ========================================================================
+        // SAVE BITMAP TO FILE AND SAVES STATE TO ALLOW REZOOMING AND COLOUR RELOAD
+        // ========================================================================
+
         // save state to xml - file menu item
         private void saveStateToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -310,6 +314,10 @@ namespace java_fractal_conversion
                 }
             }
         }
+
+        // ================================================================
+        // LOAD BITMAP FROM FILE AND RESTORE STATE INCUDING ZOOM AND COLOUR
+        // ================================================================
 
         // load state from xml - file menu item
         private void loadStateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -361,6 +369,10 @@ namespace java_fractal_conversion
             }
         }
 
+        // ============================================
+        // RESET FORM TO DEFAULT 
+        // ============================================
+
         // reset form to default
         private void reset_Click(object sender, EventArgs e)
         {
@@ -391,6 +403,10 @@ namespace java_fractal_conversion
             Start(); // reset zoom, initial variables, call mandlebrot
             Refresh(); // redraw picture and child components 
         }
+
+        // ============================================
+        // SAVE BITMAP STATE TO IMAGE FILE
+        // ============================================
 
         // save bitmap to image - file menu item
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -431,6 +447,10 @@ namespace java_fractal_conversion
                 }
             }
         }
+
+        // ============================================
+        // CHANGE COLOUR PALETTE
+        // ============================================
 
         // colour palette selection
         private void colourPaletteRed_Click(object sender, EventArgs e)
@@ -488,6 +508,10 @@ namespace java_fractal_conversion
             Mandelbrot();
             Refresh();
         }
+
+        // ============================================
+        // COLOUR CYCLING
+        // ============================================
 
         /* colour cycle checkbox - selecting the checkbox starts the timerColourCycle_Tick timer.
            The method is called every 100 milliseconds at default. At each call, the value of j is
@@ -552,6 +576,10 @@ namespace java_fractal_conversion
             }
         }
 
+        // ============================================
+        // FULL SMOOTH COLOUR CYCLING / PALETTE CYCLING
+        // ============================================
+
         /* palette cycle checkbox - if checked, the timerPaletteCycle_Tick is called every 100 milliseconds.
            At each call, the current bitmap is saved in memory as a gif image, to access the original bitmaps Pallete Entries (256 colours, 
            not accessible in jpg).
@@ -598,10 +626,14 @@ namespace java_fractal_conversion
             }
         }
 
+        // ================================================================
+        // ANIMATION OF A SEQUENCE OF FRACTALS  / CALCULATING BITMAP STATES 
+        // ================================================================
+
         /* animation checkbox - if selected, a dialog will appear allowing the user to select multiple bitmap states (xml).
            Each state file is loaded into a State model and added to the States list. The AnimateStates method displays each state,
            and calculates the values needed to draw the bitmaps inbetween the current and next state. 
-         */
+        */
         private void checkBoxAnimation_CheckedChanged(object sender, EventArgs e)
         {
             States = new List<State>(); // instantiate empty list of states
@@ -763,12 +795,16 @@ namespace java_fractal_conversion
             }
         }
 
+        // ======================================================================
+        // ANIMATION OF A SEQUENCE OF FRACTALS  / DISPLAYING LOADED BITMAP STATES 
+        // ======================================================================
+
         /* Sequence of fractals - user can select multiple bitmap states in xml from a dialog menu,
            which are stored in States list. Each time the timerSequenceOfFractals_Tick() method is called,
            ticks is incremented. The value of ticks is used to select the next state from the States list.
            The user can change the timerSequenceOfFractals timer interval using the domainUpDown form control.
            The user can also use the trackbar to switch between states.
-         */
+        */
         private void checkBoxSequenceOfFractals_CheckedChanged(object sender, EventArgs e)
         {
             States = new List<State>(); // instantiate empty list of states
@@ -815,7 +851,6 @@ namespace java_fractal_conversion
                         }
                     }
                 }
-
             }
             else
             {
