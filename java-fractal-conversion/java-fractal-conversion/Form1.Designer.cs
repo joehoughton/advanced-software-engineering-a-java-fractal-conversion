@@ -62,10 +62,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.messageAnimation = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.checkBoxSequenceOfFractals = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.trackBarSequenceOfFractals = new System.Windows.Forms.TrackBar();
+            this.timerSequenceOfFractals = new System.Windows.Forms.Timer(this.components);
+            this.domainUpDownSequenceOfFractals = new System.Windows.Forms.DomainUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSequenceOfFractals)).BeginInit();
             this.SuspendLayout();
             // 
             // picture
@@ -213,7 +219,7 @@
             this.colourPaletteTitle.BackColor = System.Drawing.Color.Black;
             this.colourPaletteTitle.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.colourPaletteTitle.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.colourPaletteTitle.Location = new System.Drawing.Point(1104, 521);
+            this.colourPaletteTitle.Location = new System.Drawing.Point(1104, 546);
             this.colourPaletteTitle.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.colourPaletteTitle.Name = "colourPaletteTitle";
             this.colourPaletteTitle.Size = new System.Drawing.Size(275, 45);
@@ -224,7 +230,7 @@
             // 
             this.colourPaletteRed.BackColor = System.Drawing.Color.Red;
             this.colourPaletteRed.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteRed.Location = new System.Drawing.Point(1112, 604);
+            this.colourPaletteRed.Location = new System.Drawing.Point(1112, 629);
             this.colourPaletteRed.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteRed.Name = "colourPaletteRed";
             this.colourPaletteRed.Size = new System.Drawing.Size(56, 54);
@@ -239,7 +245,7 @@
             // 
             this.colourPaletteOrange.BackColor = System.Drawing.Color.DarkOrange;
             this.colourPaletteOrange.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteOrange.Location = new System.Drawing.Point(1180, 604);
+            this.colourPaletteOrange.Location = new System.Drawing.Point(1180, 629);
             this.colourPaletteOrange.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteOrange.Name = "colourPaletteOrange";
             this.colourPaletteOrange.Size = new System.Drawing.Size(56, 54);
@@ -254,7 +260,7 @@
             // 
             this.colourPaletteTurquoise.BackColor = System.Drawing.Color.Turquoise;
             this.colourPaletteTurquoise.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteTurquoise.Location = new System.Drawing.Point(1112, 668);
+            this.colourPaletteTurquoise.Location = new System.Drawing.Point(1112, 693);
             this.colourPaletteTurquoise.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteTurquoise.Name = "colourPaletteTurquoise";
             this.colourPaletteTurquoise.Size = new System.Drawing.Size(56, 54);
@@ -269,7 +275,7 @@
             // 
             this.colourPaletteYellow.BackColor = System.Drawing.Color.Yellow;
             this.colourPaletteYellow.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteYellow.Location = new System.Drawing.Point(1248, 604);
+            this.colourPaletteYellow.Location = new System.Drawing.Point(1248, 629);
             this.colourPaletteYellow.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteYellow.Name = "colourPaletteYellow";
             this.colourPaletteYellow.Size = new System.Drawing.Size(56, 54);
@@ -284,7 +290,7 @@
             // 
             this.colourPaletteGreen.BackColor = System.Drawing.Color.LawnGreen;
             this.colourPaletteGreen.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteGreen.Location = new System.Drawing.Point(1316, 604);
+            this.colourPaletteGreen.Location = new System.Drawing.Point(1316, 629);
             this.colourPaletteGreen.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteGreen.Name = "colourPaletteGreen";
             this.colourPaletteGreen.Size = new System.Drawing.Size(56, 54);
@@ -299,7 +305,7 @@
             // 
             this.colourPaletteBlue.BackColor = System.Drawing.Color.Blue;
             this.colourPaletteBlue.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPaletteBlue.Location = new System.Drawing.Point(1180, 668);
+            this.colourPaletteBlue.Location = new System.Drawing.Point(1180, 693);
             this.colourPaletteBlue.Margin = new System.Windows.Forms.Padding(6);
             this.colourPaletteBlue.Name = "colourPaletteBlue";
             this.colourPaletteBlue.Size = new System.Drawing.Size(56, 54);
@@ -314,7 +320,7 @@
             // 
             this.colourPalettePurple.BackColor = System.Drawing.Color.Purple;
             this.colourPalettePurple.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.colourPalettePurple.Location = new System.Drawing.Point(1248, 668);
+            this.colourPalettePurple.Location = new System.Drawing.Point(1248, 693);
             this.colourPalettePurple.Margin = new System.Windows.Forms.Padding(6);
             this.colourPalettePurple.Name = "colourPalettePurple";
             this.colourPalettePurple.Size = new System.Drawing.Size(56, 54);
@@ -331,7 +337,7 @@
             this.colourPaletteLabel.BackColor = System.Drawing.Color.Black;
             this.colourPaletteLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.colourPaletteLabel.ForeColor = System.Drawing.Color.White;
-            this.colourPaletteLabel.Location = new System.Drawing.Point(1104, 562);
+            this.colourPaletteLabel.Location = new System.Drawing.Point(1104, 587);
             this.colourPaletteLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.colourPaletteLabel.Name = "colourPaletteLabel";
             this.colourPaletteLabel.Size = new System.Drawing.Size(196, 37);
@@ -341,7 +347,7 @@
             // trackBarColourCycle
             // 
             this.trackBarColourCycle.BackColor = System.Drawing.Color.Black;
-            this.trackBarColourCycle.Location = new System.Drawing.Point(1154, 775);
+            this.trackBarColourCycle.Location = new System.Drawing.Point(1154, 800);
             this.trackBarColourCycle.Margin = new System.Windows.Forms.Padding(6);
             this.trackBarColourCycle.Maximum = 2;
             this.trackBarColourCycle.Name = "trackBarColourCycle";
@@ -357,7 +363,7 @@
             this.checkBoxColourCycle.AutoSize = true;
             this.checkBoxColourCycle.BackColor = System.Drawing.Color.Black;
             this.checkBoxColourCycle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBoxColourCycle.Location = new System.Drawing.Point(1112, 780);
+            this.checkBoxColourCycle.Location = new System.Drawing.Point(1112, 805);
             this.checkBoxColourCycle.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxColourCycle.Name = "checkBoxColourCycle";
             this.checkBoxColourCycle.Padding = new System.Windows.Forms.Padding(10);
@@ -375,7 +381,7 @@
             this.label1.BackColor = System.Drawing.Color.Black;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(1114, 734);
+            this.label1.Location = new System.Drawing.Point(1114, 759);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(262, 45);
@@ -393,7 +399,7 @@
             this.colourCycleSpeedLabel.BackColor = System.Drawing.Color.Black;
             this.colourCycleSpeedLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.colourCycleSpeedLabel.ForeColor = System.Drawing.Color.White;
-            this.colourCycleSpeedLabel.Location = new System.Drawing.Point(1320, 735);
+            this.colourCycleSpeedLabel.Location = new System.Drawing.Point(1320, 760);
             this.colourCycleSpeedLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.colourCycleSpeedLabel.Name = "colourCycleSpeedLabel";
             this.colourCycleSpeedLabel.Size = new System.Drawing.Size(44, 37);
@@ -405,7 +411,7 @@
             this.checkBoxPaletteCycle.AutoSize = true;
             this.checkBoxPaletteCycle.BackColor = System.Drawing.Color.Black;
             this.checkBoxPaletteCycle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBoxPaletteCycle.Location = new System.Drawing.Point(1102, 479);
+            this.checkBoxPaletteCycle.Location = new System.Drawing.Point(1102, 504);
             this.checkBoxPaletteCycle.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxPaletteCycle.Name = "checkBoxPaletteCycle";
             this.checkBoxPaletteCycle.Padding = new System.Windows.Forms.Padding(10);
@@ -427,7 +433,7 @@
             this.label2.BackColor = System.Drawing.Color.Black;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(1104, 438);
+            this.label2.Location = new System.Drawing.Point(1104, 463);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(282, 45);
@@ -439,7 +445,7 @@
             this.checkBoxAnimation.AutoSize = true;
             this.checkBoxAnimation.BackColor = System.Drawing.Color.Black;
             this.checkBoxAnimation.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBoxAnimation.Location = new System.Drawing.Point(1102, 394);
+            this.checkBoxAnimation.Location = new System.Drawing.Point(1102, 419);
             this.checkBoxAnimation.Name = "checkBoxAnimation";
             this.checkBoxAnimation.Padding = new System.Windows.Forms.Padding(10);
             this.checkBoxAnimation.Size = new System.Drawing.Size(48, 47);
@@ -453,7 +459,7 @@
             this.label3.BackColor = System.Drawing.Color.Black;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(1103, 283);
+            this.label3.Location = new System.Drawing.Point(1103, 308);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(212, 45);
@@ -478,12 +484,72 @@
             this.label4.BackColor = System.Drawing.Color.Black;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(1104, 323);
+            this.label4.Location = new System.Drawing.Point(1104, 348);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(192, 74);
             this.label4.TabIndex = 26;
             this.label4.Text = "Select multiple\r\nstates:";
+            // 
+            // checkBoxSequenceOfFractals
+            // 
+            this.checkBoxSequenceOfFractals.AutoSize = true;
+            this.checkBoxSequenceOfFractals.BackColor = System.Drawing.Color.Black;
+            this.checkBoxSequenceOfFractals.ForeColor = System.Drawing.Color.Black;
+            this.checkBoxSequenceOfFractals.Location = new System.Drawing.Point(1102, 258);
+            this.checkBoxSequenceOfFractals.Name = "checkBoxSequenceOfFractals";
+            this.checkBoxSequenceOfFractals.Padding = new System.Windows.Forms.Padding(10);
+            this.checkBoxSequenceOfFractals.Size = new System.Drawing.Size(48, 47);
+            this.checkBoxSequenceOfFractals.TabIndex = 27;
+            this.checkBoxSequenceOfFractals.UseVisualStyleBackColor = false;
+            this.checkBoxSequenceOfFractals.CheckedChanged += new System.EventHandler(this.checkBoxSequenceOfFractals_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Black;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label5.Location = new System.Drawing.Point(1044, 160);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(306, 45);
+            this.label5.TabIndex = 28;
+            this.label5.Text = "Sequence of fractals";
+            // 
+            // trackBarSequenceOfFractals
+            // 
+            this.trackBarSequenceOfFractals.BackColor = System.Drawing.Color.Black;
+            this.trackBarSequenceOfFractals.Location = new System.Drawing.Point(1093, 204);
+            this.trackBarSequenceOfFractals.Maximum = 0;
+            this.trackBarSequenceOfFractals.Name = "trackBarSequenceOfFractals";
+            this.trackBarSequenceOfFractals.Size = new System.Drawing.Size(233, 90);
+            this.trackBarSequenceOfFractals.TabIndex = 29;
+            this.trackBarSequenceOfFractals.Scroll += new System.EventHandler(this.trackBarSequenceOfFractals_Scroll);
+            // 
+            // timerSequenceOfFractals
+            // 
+            this.timerSequenceOfFractals.Interval = 2000;
+            this.timerSequenceOfFractals.Tick += new System.EventHandler(this.timerSequenceOfFractals_Tick);
+            // 
+            // domainUpDownSequenceOfFractals
+            // 
+            this.domainUpDownSequenceOfFractals.AccessibleRole = System.Windows.Forms.AccessibleRole.Slider;
+            this.domainUpDownSequenceOfFractals.BackColor = System.Drawing.Color.Black;
+            this.domainUpDownSequenceOfFractals.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.domainUpDownSequenceOfFractals.ForeColor = System.Drawing.Color.White;
+            this.domainUpDownSequenceOfFractals.Items.Add("x1");
+            this.domainUpDownSequenceOfFractals.Items.Add("x2");
+            this.domainUpDownSequenceOfFractals.Items.Add("x3");
+            this.domainUpDownSequenceOfFractals.Location = new System.Drawing.Point(1206, 262);
+            this.domainUpDownSequenceOfFractals.Name = "domainUpDownSequenceOfFractals";
+            this.domainUpDownSequenceOfFractals.ReadOnly = true;
+            this.domainUpDownSequenceOfFractals.Size = new System.Drawing.Size(120, 43);
+            this.domainUpDownSequenceOfFractals.Sorted = true;
+            this.domainUpDownSequenceOfFractals.TabIndex = 30;
+            this.domainUpDownSequenceOfFractals.Text = "x1";
+            this.domainUpDownSequenceOfFractals.Wrap = true;
+            this.domainUpDownSequenceOfFractals.SelectedItemChanged += new System.EventHandler(this.domainUpDownSequenceOfFractals_SelectedItemChanged);
             // 
             // Form1
             // 
@@ -492,6 +558,9 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1478, 1117);
+            this.Controls.Add(this.domainUpDownSequenceOfFractals);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.checkBoxSequenceOfFractals);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.label2);
@@ -515,6 +584,7 @@
             this.Controls.Add(this.message);
             this.Controls.Add(this.picture);
             this.Controls.Add(this.menuStrip);
+            this.Controls.Add(this.trackBarSequenceOfFractals);
             this.Controls.Add(this.imageTv);
             this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -526,6 +596,7 @@
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageTv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarColourCycle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSequenceOfFractals)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -566,6 +637,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label messageAnimation;
         private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.CheckBox checkBoxSequenceOfFractals;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TrackBar trackBarSequenceOfFractals;
+        private System.Windows.Forms.Timer timerSequenceOfFractals;
+        private System.Windows.Forms.DomainUpDown domainUpDownSequenceOfFractals;
 
     }
 }

@@ -32,6 +32,7 @@ namespace java_fractal_conversion
         public List<State> States;
         private State currentState;
         private State nextState;
+        private int ticks = 0;
         // private static bool finished;  // djm not needed - can reset state without in resetToolStripMenuItem_Click()
         // private Cursor c1, c2; // djm not needed // now changed in picture_MouseEnter and picture_MouseLeave 
         // private Image picture; // djm not needed 
@@ -379,11 +380,14 @@ namespace java_fractal_conversion
             checkBoxAnimation.Checked = false; // uncheck animation checkbox
             checkBoxColourCycle.Checked = false; // uncheck colour cycle checkbox
             checkBoxPaletteCycle.Checked = false; // uncheck palette cycle checkbox
+            checkBoxSequenceOfFractals.Checked = false;
             j = 0; // reset fractal colour to red
             trackBarColourCycle.Value = 0; // reset colour cycle speed
             colourCycleSpeedLabel.Text = "x1"; // reset colour cycle speed label
             colourPaletteLabel.Text = "Select a colour:"; // no colour selected
             messageAnimation.Text = null; // remove text
+            domainUpDownSequenceOfFractals.Text = "x1"; // reset text to default speed
+            domainUpDownSequenceOfFractals.SelectedItem = "x1";
             Start(); // reset zoom, initial variables, call mandlebrot
             Refresh(); // redraw picture and child components 
         }
@@ -756,6 +760,130 @@ namespace java_fractal_conversion
 
                     }
                 }
+            }
+        }
+
+        /* Sequence of fractals - user can select multiple bitmap states in xml from a dialog menu,
+           which are stored in States list. Each time the timerSequenceOfFractals_Tick() method is called,
+           ticks is incremented. The value of ticks is used to select the next state from the States list.
+           The user can change the timerSequenceOfFractals timer interval using the domainUpDown form control.
+           The user can also use the trackbar to switch between states.
+         */
+        private void checkBoxSequenceOfFractals_CheckedChanged(object sender, EventArgs e)
+        {
+            States = new List<State>(); // instantiate empty list of states
+
+            if (checkBoxSequenceOfFractals.Checked) // animation checkbox selected
+            {
+                var openFileDialog = new OpenFileDialog
+                                         {
+                                             Filter = "XML files (*.xml)|*.xml", // only display xml files in directory
+                                             Multiselect = true // select multiple files
+                                         };
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    foreach (String file in openFileDialog.FileNames) // read each selected file
+                    {
+                        try
+                        {
+                            var streamReader = new StreamReader(file); // initialise stream reader to read selected xml file
+                            using (streamReader) // using statement disposes of system resources automatically
+                            {
+                                var document = new XmlDocument();
+                                document.Load(file);
+                                var xnList = document.SelectNodes("/state"); // select parent node
+
+                                foreach (XmlNode xmlNode in xnList) // loop through child nodes to access stored bitmap attributes
+                                {
+                                    States.Add(
+                                        new State( // add new state to list of states
+                                            Convert.ToDouble(xmlNode["xstart"].InnerText),
+                                            Convert.ToDouble(xmlNode["ystart"].InnerText),
+                                            Convert.ToDouble(xmlNode["xzoom"].InnerText),
+                                            Convert.ToDouble(xmlNode["yzoom"].InnerText),
+                                            Convert.ToInt32(xmlNode["j"].InnerText),
+                                            file));
+                                }
+                            }
+                            timerSequenceOfFractals.Start();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            message.Text = String.Format("Failed to load fractal state. {0}", ex.Message); // failed to load, display error message
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                timerSequenceOfFractals.Stop(); //stop timer if button not checked
+                trackBarSequenceOfFractals.Maximum = 0; // no trackbar marks
+            }
+        }
+
+        private void trackBarSequenceOfFractals_Scroll(object sender, EventArgs e)
+        {
+            currentState = States[trackBarSequenceOfFractals.Value]; // take trackbar index and redraw the correct bitmap from list using this value
+
+            xstart = currentState.Xstart;
+            ystart = currentState.Ystart;
+            xzoom = currentState.Xzoom;
+            yzoom = currentState.Yzoom;
+            j = currentState.J;
+
+            Mandelbrot(); // redraw selected bitmap
+            Refresh();
+        }
+
+        private void timerSequenceOfFractals_Tick(object sender, EventArgs e)
+        {
+            if (!States.Any()) // if no states selected from file, return
+            {
+                return;
+            }
+
+            trackBarSequenceOfFractals.Maximum = timerSequenceOfFractals.Enabled ? States.Count - 1 : 0; // set trackbar levels to amount of selected files
+            ticks++; // increment ticks each time timer called
+
+            if (ticks > States.Count - 1) // if ticks exceeds the list count, set it back to zero
+            {
+                ticks = 0;
+            }
+
+            trackBarSequenceOfFractals.Value = ticks; // set slider to current list index
+            currentState = States[ticks]; // get single state from list
+
+            xstart = currentState.Xstart;
+            ystart = currentState.Ystart;
+            xzoom = currentState.Xzoom;
+            yzoom = currentState.Yzoom;
+            j = currentState.J;
+
+            Mandelbrot(); // draw selected state from list
+            Refresh();
+        }
+
+        private void domainUpDownSequenceOfFractals_SelectedItemChanged(object sender, EventArgs e)
+        {
+            if (domainUpDownSequenceOfFractals.SelectedItem == null) // set default selected item 
+            {
+                domainUpDownSequenceOfFractals.SelectedItem = "x1";
+            }
+
+            switch (domainUpDownSequenceOfFractals.SelectedItem.ToString()) // get value from user selection and change timer
+            {
+                case "x2":
+                    timerSequenceOfFractals.Interval = 1000;
+                    break;
+                case "x3":
+                    timerSequenceOfFractals.Interval = 300;
+                    break;
+                default:
+                    timerSequenceOfFractals.Interval = 2000;
+                    break;
             }
         }
 
