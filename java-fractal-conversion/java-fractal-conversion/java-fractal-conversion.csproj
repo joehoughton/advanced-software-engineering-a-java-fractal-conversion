@@ -83,6 +83,14 @@
   <ItemGroup>
     <None Include="Resources\tv.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\fractal-animation-state1.xml" />
+    <Content Include="Resources\fractal-animation-state2.xml" />
+    <Content Include="Resources\fractal-state1.xml" />
+    <Content Include="Resources\fractal-state2.xml" />
+    <Content Include="Resources\fractal-state3.xml" />
+    <Content Include="Resources\fractal-state4.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
